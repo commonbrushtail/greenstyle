@@ -2,61 +2,85 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative bg-gradient-to-br from-primary-50 to-accent-50 overflow-hidden">
-      <div className="container-custom section-padding">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Content */}
-          <div className="space-y-6">
-            <h1 className="heading-xl text-gray-900">
-              สร้างโลก<span className="text-gradient">ที่ยั่งยืน</span>
-              <br />
-              ด้วยกัน
-            </h1>
-            <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
-              ที่ปรึกษาด้านสิ่งแวดล้อม คาร์บอนฟุตพริ้นท์
-              และผู้จัดจำหน่ายสินค้าเป็นมิตรกับสิ่งแวดล้อม
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/contact" className="btn btn-primary text-lg">
-                ปรึกษาฟรี
-              </Link>
-              <Link href="/services" className="btn btn-outline text-lg">
-                ดูบริการของเรา
+    <section className="relative bg-gradient-to-br from-gray-50 via-white to-primary-50 overflow-hidden min-h-[85vh] flex items-center">
+      <div className="container-custom py-12 md:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* Main Content - Takes up more space */}
+          <div className="lg:col-span-7 space-y-8">
+            {/* Large Headline with decorative leaf */}
+            <div className="relative">
+              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-gray-900 leading-tight">
+                นำความชัดเจน
+                <br />
+                สู่การเดินทาง
+                <br />
+                <span className="relative inline-block">
+                  <span className="text-primary-700">ที่ยั่งยืน</span>
+                  {/* Decorative leaf element */}
+                  <div className="absolute -top-12 -right-12 md:-top-16 md:-right-20 text-6xl md:text-8xl opacity-40 pointer-events-none">
+                    🌿
+                  </div>
+                </span>
+              </h1>
+            </div>
+
+            {/* CTA Button */}
+            <div className="pt-4">
+              <Link
+                href="/contact"
+                className="inline-block bg-primary-600 hover:bg-primary-700 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                จองการปรึกษา
               </Link>
             </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 pt-8">
-              <div>
-                <div className="text-3xl font-bold text-primary-600">100+</div>
-                <div className="text-sm text-gray-600">โครงการที่สำเร็จ</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-primary-600">50+</div>
-                <div className="text-sm text-gray-600">ลูกค้าองค์กร</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-primary-600">10+</div>
-                <div className="text-sm text-gray-600">ปีของประสบการณ์</div>
-              </div>
+            {/* Trust Badge */}
+            <div className="pt-8 border-t border-gray-200">
+              <p className="text-lg text-gray-600 font-medium">
+                ได้รับความไว้วางใจจากผู้นำอุตสาหกรรม
+              </p>
             </div>
           </div>
 
-          {/* Image Placeholder */}
-          <div className="relative h-[400px] lg:h-[500px]">
-            <div className="w-full h-full bg-gradient-to-br from-primary-200 to-accent-200 rounded-2xl flex items-center justify-center">
-              <div className="text-center text-primary-700">
-                <div className="text-6xl mb-4">🌱</div>
-                <p className="text-sm">Hero Image</p>
+          {/* Supporting Text - Right side */}
+          <div className="lg:col-span-5">
+            <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-8 border border-primary-100 shadow-sm">
+              <div className="space-y-4">
+                <div className="h-1 w-20 bg-gradient-to-r from-primary-500 to-primary-300 rounded-full" />
+                <p className="text-xl md:text-2xl text-gray-800 font-display leading-relaxed">
+                  เราพร้อมสนับสนุนบริษัทของคุณ
+                  <br />
+                  บนเส้นทางจากการปฏิบัติตามข้อกำหนด
+                  <br />
+                  สู่การสร้างผลกระทบเชิงบวก
+                </p>
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-gray-200">
+                <div>
+                  <div className="text-3xl font-bold text-primary-600 font-display">100+</div>
+                  <div className="text-xs text-gray-600 mt-1">โครงการ</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-primary-600 font-display">50+</div>
+                  <div className="text-xs text-gray-600 mt-1">ลูกค้า</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-primary-600 font-display">10+</div>
+                  <div className="text-xs text-gray-600 mt-1">ปี</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Decorative Elements */}
-      <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-primary-200 rounded-full blur-3xl opacity-20" />
-      <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-96 h-96 bg-accent-200 rounded-full blur-3xl opacity-20" />
+      {/* Decorative gradient blob - bottom right */}
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-tl from-primary-200/30 via-accent-200/20 to-transparent rounded-full blur-3xl pointer-events-none" />
+
+      {/* Decorative gradient blob - top left */}
+      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-gradient-to-br from-gray-200/40 to-transparent rounded-full blur-3xl pointer-events-none" />
     </section>
   );
 }

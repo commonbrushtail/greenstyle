@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { FiFacebook, FiInstagram, FiLinkedin, FiMail, FiPhone, FiMapPin } from "react-icons/fi";
 
 export default function Footer() {
@@ -10,10 +11,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">GS</span>
-              </div>
+            <div className="flex items-center space-x-3 mb-4">
+              <Image
+                src="/images/logo.png"
+                alt="Green Style"
+                width={50}
+                height={50}
+                className="w-12 h-12 object-contain"
+              />
               <span className="font-display font-bold text-xl text-white">
                 Green Style
               </span>

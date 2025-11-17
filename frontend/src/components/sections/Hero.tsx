@@ -9,17 +9,18 @@ export default function Hero() {
           <div className="lg:col-span-7 space-y-8">
             {/* Large Headline with decorative leaf */}
             <div className="relative">
-              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-gray-900 leading-tight">
-                นำความชัดเจน
+              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl xl:text-8xl  font-bold text-gray-900 leading-relaxed">
+                ปรับเปลี่ยน
                 <br />
-                สู่การเดินทาง
+                องค์กรของคุณ
                 <br />
                 <span className="relative inline-block">
-                  <span className="text-primary-700">ที่ยั่งยืน</span>
-                  {/* Decorative leaf element */}
-                  <div className="absolute -top-12 -right-12 md:-top-16 md:-right-20 text-6xl md:text-8xl opacity-40 pointer-events-none">
+                  <span className="text-primary-700">สู่ความยั่งยืน</span>
+          
+                  {/* <div className="absolute -top-5 -right-12 md:-top-20 md:-right-20 text-6xl md:text-8xl opacity-100 pointer-events-none">
                     🌿
-                  </div>
+                  </div>  */}
+             
                 </span>
               </h1>
             </div>
@@ -30,14 +31,16 @@ export default function Hero() {
                 href="/contact"
                 className="inline-block bg-primary-600 hover:bg-primary-700 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
               >
-                จองการปรึกษา
+                ปรึกษาฟรี
               </Link>
             </div>
 
-            {/* Trust Badge */}
-            <div className="pt-8 border-t border-gray-200">
-              <p className="text-lg text-gray-600 font-medium">
-                ได้รับความไว้วางใจจากผู้นำอุตสาหกรรม
+            {/* Subheadline */}
+            <div className="pt-2">
+              <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
+                ฝึกอบรม คำนวณคาร์บอน และให้คำปรึกษาสิ่งแวดล้อม
+                <br />
+                เพื่อลดต้นทุนและสร้างผลกระทบเชิงบวก
               </p>
             </div>
           </div>
@@ -48,11 +51,11 @@ export default function Hero() {
               <div className="space-y-4">
                 <div className="h-1 w-20 bg-gradient-to-r from-primary-500 to-primary-300 rounded-full" />
                 <p className="text-xl md:text-2xl text-gray-800 font-display leading-relaxed">
-                  เราพร้อมสนับสนุนบริษัทของคุณ
+                  ฝึกอบรมและให้คำปรึกษา
                   <br />
-                  บนเส้นทางจากการปฏิบัติตามข้อกำหนด
+                  คาร์บอนฟุตพริ้นท์ CFO/CFP
                   <br />
-                  สู่การสร้างผลกระทบเชิงบวก
+                  เพื่อลดต้นทุนและสร้างผลกระทบเชิงบวก
                 </p>
               </div>
 

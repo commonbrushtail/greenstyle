@@ -9,6 +9,20 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Speed up development by reducing SSR overhead
+  experimental: {
+    optimizePackageImports: ['react-icons'],
+  },
+  // Faster rebuilds in development
+  webpack: (config, { dev }) => {
+    if (dev) {
+      config.watchOptions = {
+        poll: 1000,
+        aggregateTimeout: 300,
+      };
+    }
+    return config;
+  },
 };
 
 export default nextConfig;

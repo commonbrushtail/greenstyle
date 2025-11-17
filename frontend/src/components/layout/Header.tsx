@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 
@@ -29,10 +30,15 @@ export default function Header() {
       <nav className="container-custom">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">GS</span>
-            </div>
+          <Link href="/" className="flex items-center space-x-3">
+            <Image
+              src="/images/logo.png"
+              alt="Green Style"
+              width={50}
+              height={50}
+              className="w-12 h-12 object-contain"
+              priority
+            />
             <span className="font-display font-bold text-xl text-gray-900 hidden sm:block">
               Green Style
             </span>

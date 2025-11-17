@@ -1,0 +1,44 @@
+import type { Metadata } from "next";
+import { Sarabun, Prompt } from "next/font/google";
+import "@/styles/globals.css";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+
+// Configure Thai fonts
+const sarabun = Sarabun({
+  weight: ['300', '400', '500', '600', '700'],
+  subsets: ['thai', 'latin'],
+  variable: '--font-sarabun',
+  display: 'swap',
+});
+
+const prompt = Prompt({
+  weight: ['400', '500', '600', '700'],
+  subsets: ['thai', 'latin'],
+  variable: '--font-prompt',
+  display: 'swap',
+});
+
+export const metadata: Metadata = {
+  title: "Green Style Co., Ltd. | บริษัท กรีน สไตล์ จำกัด",
+  description: "ที่ปรึกษาด้านสิ่งแวดล้อม คาร์บอนฟุตพริ้นท์ และสินค้าเป็นมิตรกับสิ่งแวดล้อม",
+  keywords: ['คาร์บอนฟุตพริ้นท์', 'ที่ปรึกษาสิ่งแวดล้อม', 'สินค้าเป็นมิตรกับสิ่งแวดล้อม', 'Carbon Footprint', 'CFO', 'CFP'],
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="th" className={`${sarabun.variable} ${prompt.variable}`}>
+      <body className="font-sans">
+        <Header />
+        <main className="min-h-screen">
+          {children}
+        </main>
+        <Footer />
+      </body>
+    </html>
+  );
+}

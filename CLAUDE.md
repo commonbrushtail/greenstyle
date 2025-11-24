@@ -22,6 +22,7 @@ This document provides guidance for Claude (or any AI assistant) when working on
 3. **TypeScript strict mode**: Use proper TypeScript types, no `any` unless absolutely necessary
 4. **Functional components**: Always use React functional components with hooks
 5. **Server/Client components**: Mark with `"use client"` only when necessary (interactivity, hooks)
+6. **NEVER kill dev servers**: Do NOT attempt to kill Node.js processes or dev servers using Bash commands. Always ask the user to manually stop the server if needed
 
 ### File Structure Conventions
 

@@ -1,9 +1,32 @@
+"use client";
+
 import Link from "next/link";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+
+// Dynamically import 3D component to avoid SSR issues
+const GlobeScene = dynamic(() => import("@/components/ui/GlobeScene"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-600"></div>
+    </div>
+  ),
+});
 
 export default function Hero() {
   return (
     <section className="relative bg-gradient-to-br from-gray-50 via-white to-primary-50 overflow-hidden min-h-[85vh] flex items-center">
-      <div className="container-custom py-12 md:py-20">
+      {/* 3D Background Element */}
+      <div className="absolute inset-0 pointer-events-none opacity-40">
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-full">
+          <Suspense fallback={<div />}>
+            <GlobeScene />
+          </Suspense>
+        </div>
+      </div>
+
+      <div className="container-custom py-12 md:py-20 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Main Content - Takes up more space */}
           <div className="lg:col-span-7 space-y-8">

@@ -4,9 +4,22 @@
       "Bash(PORT=3002 npm run dev)",
       "Bash(npm install three @react-three/fiber @react-three/drei)",
       "Bash(git checkout src/components/sections/Hero.tsx)",
-      "Bash(cat .env.local)"
+      "Bash(cat .env.local)",
+      "Bash(powershell -File \"c:\\Users\\commo\\Project\\greenstyle\\beep.ps1\")"
     ],
     "deny": [],
     "ask": []
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -File \"c:\\Users\\commo\\Project\\greenstyle\\beep.ps1\""
+          }
+        ]
+      }
+    ]
   }
 }

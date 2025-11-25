@@ -103,11 +103,7 @@ export default function About() {
           {/* Right side - Content */}
           <div className="space-y-8">
             <div className="about-content">
-              <div className="inline-block">
-                <span className="text-sm font-semibold text-primary-600 uppercase tracking-wider bg-primary-50 px-4 py-2 rounded-full">
-                  เกี่ยวกับเรา
-                </span>
-              </div>
+              
             </div>
 
             <div className="about-content">

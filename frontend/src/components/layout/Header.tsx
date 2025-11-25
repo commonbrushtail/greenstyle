@@ -26,7 +26,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+    <header className="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
       <nav className="container-custom">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}

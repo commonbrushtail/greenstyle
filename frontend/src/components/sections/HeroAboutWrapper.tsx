@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
+import { GraduationCap, BarChart3, Lightbulb } from "lucide-react";
 import AnimatedGlobe from "@/components/ui/AnimatedHero-About";
 
 
@@ -25,7 +26,8 @@ export default function HeroAboutWrapper() {
   }, []);
 
   useEffect(() => {
-    if (!wrapperRef.current || !globeRef.current || !aboutSectionRef.current || !globeTargetRef.current) return;
+    // Wait for mount to complete before setting up animations
+    if (!mounted || !wrapperRef.current || !globeRef.current || !aboutSectionRef.current || !globeTargetRef.current) return;
 
     const ctx = gsap.context(() => {
       // Animate the globe from Hero to About section
@@ -36,7 +38,7 @@ export default function HeroAboutWrapper() {
           end: "top 20%",
           scrub: 1.5,
           invalidateOnRefresh: true, // Recalculate on resize
-          // markers: true, // Uncomment for debugging
+          // markers: true, // Debug markers enabled
         },
       });
 
@@ -88,7 +90,7 @@ export default function HeroAboutWrapper() {
     }, wrapperRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [mounted]);
 
   return (
     <div ref={wrapperRef} className="relative">
@@ -144,7 +146,6 @@ export default function HeroAboutWrapper() {
             <div className="lg:col-span-5 relative z-[20]">
               <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-8 border border-primary-100 shadow-sm">
                 <div className="space-y-4">
-                  <div className="h-1 w-20 bg-gradient-to-r from-primary-500 to-primary-300 rounded-full" />
                   <p className="text-xl md:text-2xl text-gray-800 font-display leading-relaxed">
                     ฝึกอบรมและให้คำปรึกษา
                     <br />
@@ -211,14 +212,6 @@ export default function HeroAboutWrapper() {
             {/* Right side - Content */}
             <div className="space-y-8">
               <div className="about-content">
-                <div className="inline-block">
-                  <span className="text-sm font-semibold text-primary-600 uppercase tracking-wider bg-primary-50 px-4 py-2 rounded-full">
-                    เกี่ยวกับเรา
-                  </span>
-                </div>
-              </div>
-
-              <div className="about-content">
                 <h2 className="heading-xl text-gray-900">
                   พันธมิตรของคุณ
                   <br />
@@ -248,10 +241,10 @@ export default function HeroAboutWrapper() {
               <div className="about-content space-y-4 pt-4">
                 <div className="flex items-start gap-4 group">
                   <div className="flex-shrink-0 w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center group-hover:bg-primary-200 transition-colors">
-                    <span className="text-2xl">🎓</span>
+                    <GraduationCap className="w-6 h-6 text-primary-600" />
                   </div>
                   <div>
-                    <h3 className="font-display font-semibold text-gray-900 text-lg mb-1">
+                    <h3 className="font-display font-semibold text-gray-900 text-xl mb-1">
                       หลักสูตรอบรมคุณภาพ
                     </h3>
                     <p className="text-gray-600">
@@ -262,10 +255,10 @@ export default function HeroAboutWrapper() {
 
                 <div className="flex items-start gap-4 group">
                   <div className="flex-shrink-0 w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center group-hover:bg-primary-200 transition-colors">
-                    <span className="text-2xl">📊</span>
+                    <BarChart3 className="w-6 h-6 text-primary-600" />
                   </div>
                   <div>
-                    <h3 className="font-display font-semibold text-gray-900 text-lg mb-1">
+                    <h3 className="font-display font-semibold text-gray-900 text-xl mb-1">
                       การคำนวณที่แม่นยำ
                     </h3>
                     <p className="text-gray-600">
@@ -276,10 +269,10 @@ export default function HeroAboutWrapper() {
 
                 <div className="flex items-start gap-4 group">
                   <div className="flex-shrink-0 w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center group-hover:bg-primary-200 transition-colors">
-                    <span className="text-2xl">💡</span>
+                    <Lightbulb className="w-6 h-6 text-primary-600" />
                   </div>
                   <div>
-                    <h3 className="font-display font-semibold text-gray-900 text-lg mb-1">
+                    <h3 className="font-display font-semibold text-gray-900 text-xl mb-1">
                       คำปรึกษาเชิงลึก
                     </h3>
                     <p className="text-gray-600">

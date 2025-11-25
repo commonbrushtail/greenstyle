@@ -11,12 +11,13 @@
  */
 
 // TOGGLE SSR: Uncomment the line below to disable SSR (Client-Side Rendering only)
-"use client";
+// "use client";
 
 import { Sarabun, Prompt } from "next/font/google";
 import "@/styles/globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import type { Metadata } from "next";
 
 // Configure Thai fonts
 const sarabun = Sarabun({
@@ -33,13 +34,11 @@ const prompt = Prompt({
   display: 'swap',
 });
 
-// Note: metadata export is not available in client components
-// For SEO in production, remove "use client" directive above and add:
-// export const metadata: Metadata = {
-//   title: "Green Style Co., Ltd. | บริษัท กรีน สไตล์ จำกัด",
-//   description: "ที่ปรึกษาด้านสิ่งแวดล้อม คาร์บอนฟุตพริ้นท์ และสินค้าเป็นมิตรกับสิ่งแวดล้อม",
-//   keywords: ['คาร์บอนฟุตพริ้นท์', 'ที่ปรึกษาสิ่งแวดล้อม', 'สินค้าเป็นมิตรกับสิ่งแวดล้อม', 'Carbon Footprint', 'CFO', 'CFP'],
-// };
+export const metadata: Metadata = {
+  title: "Green Style Co., Ltd. | บริษัท กรีน สไตล์ จำกัด",
+  description: "ที่ปรึกษาด้านสิ่งแวดล้อม คาร์บอนฟุตพริ้นท์ และสินค้าเป็นมิตรกับสิ่งแวดล้อม",
+  keywords: ['คาร์บอนฟุตพริ้นท์', 'ที่ปรึกษาสิ่งแวดล้อม', 'สินค้าเป็นมิตรกับสิ่งแวดล้อม', 'Carbon Footprint', 'CFO', 'CFP'],
+};
 
 export default function RootLayout({
   children,
@@ -47,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="th" className={`${sarabun.variable} ${prompt.variable}`}>
+    <html lang="th" className={`${sarabun.variable} ${prompt.variable}`} suppressHydrationWarning>
       <body className="font-sans">
         <Header />
         <main className="min-h-screen">

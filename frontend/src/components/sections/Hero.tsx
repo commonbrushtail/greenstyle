@@ -1,32 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import dynamic from "next/dynamic";
-import { Suspense } from "react";
-
-// Dynamically import 3D component to avoid SSR issues
-const GlobeScene = dynamic(() => import("@/components/ui/GlobeScene"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-600"></div>
-    </div>
-  ),
-});
+import AnimatedGlobe from "@/components/ui/AnimatedHero-About";
 
 export default function Hero() {
   return (
-    <section className="relative bg-gradient-to-br from-gray-50 via-white to-primary-50 overflow-hidden min-h-[85vh] flex items-center">
-      {/* 3D Background Element */}
-      <div className="absolute inset-0 pointer-events-none opacity-40">
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-full">
-          <Suspense fallback={<div />}>
-            <GlobeScene />
-          </Suspense>
-        </div>
+    <section
+      id="hero-section"
+      className="relative bg-gradient-to-br from-gray-50 via-white to-primary-50 overflow-hidden min-h-[85vh] flex items-center"
+    >
+      {/* Floating 3D Globe - will transition to About section */}
+      <div
+        id="floating-globe"
+        className="fixed w-[200px] h-[200px] md:w-[250px] md:h-[250px] pointer-events-none z-50"
+       
+      >
+        <AnimatedGlobe className="w-full h-full" />
       </div>
 
-      <div className="container-custom py-12 md:py-20 relative z-10">
+      <div className="container-custom py-12 md:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Main Content - Takes up more space */}
           <div className="lg:col-span-7 space-y-8">
@@ -59,18 +51,18 @@ export default function Hero() {
             </div>
 
             {/* Subheadline */}
-            <div className="pt-2">
+            {/* <div className="pt-2">
               <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
                 ฝึกอบรม คำนวณคาร์บอน และให้คำปรึกษาสิ่งแวดล้อม
                 <br />
                 เพื่อลดต้นทุนและสร้างผลกระทบเชิงบวก
               </p>
-            </div>
+            </div> */}
           </div>
 
           {/* Supporting Text - Right side */}
           <div className="lg:col-span-5">
-            <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-8 border border-primary-100 shadow-sm">
+            <div className="relative bg-white/60 backdrop-blur-sm rounded-2xl p-8 border border-primary-100 shadow-sm">
               <div className="space-y-4">
                 <div className="h-1 w-20 bg-gradient-to-r from-primary-500 to-primary-300 rounded-full" />
                 <p className="text-xl md:text-2xl text-gray-800 font-display leading-relaxed">

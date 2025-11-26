@@ -38,14 +38,14 @@ export default function About() {
           if (rect) {
             return rect.top + rect.height / 2;
           }
-          return "50%";
+          return window.innerHeight / 2;
         },
         left: () => {
           const rect = globeTargetRef.current?.getBoundingClientRect();
           if (rect) {
             return rect.left + rect.width / 2;
           }
-          return "50%";
+          return window.innerWidth / 2;
         },
         right: "auto",
         xPercent: -50,

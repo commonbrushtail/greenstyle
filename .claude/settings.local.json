@@ -12,7 +12,11 @@
       "Bash(npm install gsap)",
       "Bash(npm install lucide-react)",
       "Bash(npx shadcn@latest add @react-bits/Threads-JS-CSS)",
-      "Bash(npm install ogl)"
+      "Bash(npm install ogl)",
+      "Bash(vercel --version)",
+      "Bash(vercel --prod)",
+      "Bash(vercel --prod --yes)",
+      "Bash(git add -A)"
     ],
     "deny": [],
     "ask": []

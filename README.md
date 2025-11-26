@@ -1,120 +1,127 @@
-# Green Style Website Development Project
+# Green Style Frontend
 
-บริษัท กรีน สไตล์ จำกัด - โครงการพัฒนาเว็บไซต์
+Next.js frontend for the Green Style Co., Ltd. website.
 
-## About This Project
+## Tech Stack
 
-This is the development project for the Green Style Co., Ltd. website redesign. Green Style is an environmental consulting company in Thailand that provides:
-- Carbon footprint calculation services (CFO, CFP)
-- Environmental training and workshops
-- Eco-friendly product distribution
-- Sustainability consulting
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **CMS**: Sanity.io
+- **Fonts**: Sarabun & Prompt (Thai support)
 
-## Project Documentation
+## Getting Started
 
-All project documentation is organized in markdown files for easy reference and development with Claude or any AI assistant.
+### 1. Install Dependencies
 
-### Quick Links to Documentation
+```bash
+npm install
+```
 
-1. **[PROJECT-OVERVIEW.md](PROJECT-OVERVIEW.md)** - High-level project goals, objectives, and current status
-2. **[SITEMAP.md](SITEMAP.md)** - Complete website structure and navigation
-3. **[DESIGN-REQUIREMENTS.md](DESIGN-REQUIREMENTS.md)** - Visual design, branding, and UI/UX requirements
-4. **[CONTENT-CHECKLIST.md](CONTENT-CHECKLIST.md)** - Content inventory and writing guidelines
-5. **[TECHNICAL-SPECS.md](TECHNICAL-SPECS.md)** - Technology stack, features, and development specifications
-6. **[SETUP-GUIDE.md](SETUP-GUIDE.md)** - ⭐ **START HERE** - Step-by-step setup instructions for Next.js + Sanity
-7. **[SANITY-SCHEMAS.md](SANITY-SCHEMAS.md)** - Complete Sanity CMS content schemas
-8. **[old-website-content.md](old-website-content.md)** - Content from the previous website
+### 2. Set Up Environment Variables
 
-## How to Use This Documentation
+Copy `.env.local.example` to `.env.local` and fill in your Sanity credentials:
 
-### For Development with Claude
-These markdown files are structured to help Claude (or any AI assistant) understand the full context of your project:
+```bash
+cp .env.local.example .env.local
+```
 
-1. **Start with PROJECT-OVERVIEW.md** to understand the big picture
-2. **Review SITEMAP.md** for website structure
-3. **Check DESIGN-REQUIREMENTS.md** for visual guidelines
-4. **Use CONTENT-CHECKLIST.md** to track content needs
-5. **Reference TECHNICAL-SPECS.md** for implementation details
+Then edit `.env.local`:
 
-### When Working on Specific Tasks
-Simply tell Claude which aspect you're working on, and reference the relevant markdown file. For example:
-- "Let's work on the homepage design based on DESIGN-REQUIREMENTS.md"
-- "Help me create the contact form using the specs in TECHNICAL-SPECS.md"
-- "Write content for the CFO service page using old-website-content.md"
+```env
+NEXT_PUBLIC_SANITY_PROJECT_ID=your-project-id
+NEXT_PUBLIC_SANITY_DATASET=production
+NEXT_PUBLIC_SANITY_API_VERSION=2024-01-01
+SANITY_API_TOKEN=your-token
+```
+
+### 3. Run Development Server
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Project Structure
 
 ```
-greenstyle/
-├── README.md                    # This file
-├── PROJECT-OVERVIEW.md          # Project goals and status
-├── SITEMAP.md                   # Website structure
-├── DESIGN-REQUIREMENTS.md       # Design specifications
-├── CONTENT-CHECKLIST.md         # Content tracking
-├── TECHNICAL-SPECS.md           # Technical requirements
-├── old-website-content.md       # Legacy content
-├── src/                         # Source code (to be created)
-├── public/                      # Static assets (to be created)
-└── docs/                        # Additional documentation
+src/
+├── app/                    # Next.js App Router pages
+│   ├── layout.tsx         # Root layout with fonts
+│   ├── page.tsx           # Homepage
+│   ├── about/            # About page
+│   ├── services/         # Services pages
+│   ├── products/         # Products pages
+│   └── contact/          # Contact page
+├── components/
+│   ├── layout/           # Header, Footer, Navigation
+│   ├── sections/         # Page sections (Hero, CTA, etc.)
+│   └── ui/               # Reusable UI components
+├── lib/
+│   ├── sanity.ts         # Sanity client configuration
+│   ├── queries.ts        # GROQ queries
+│   └── utils.ts          # Utility functions
+└── styles/
+    └── globals.css       # Global styles and Tailwind
 ```
 
-## Next Steps
+## Available Scripts
 
-### Immediate Actions Needed
-1. ✅ Project documentation created
-2. ⏳ Review and fill in missing information in each markdown file
-3. ⏳ Decide on technology stack (see TECHNICAL-SPECS.md)
-4. ⏳ Gather all content (see CONTENT-CHECKLIST.md)
-5. ⏳ Collect brand assets (logo, photos, etc.)
-6. ⏳ Create wireframes or design mockups
-7. ⏳ Start development
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
 
-### Getting Started with Development
-Once you've reviewed and updated the documentation files, you can start development by:
+## Custom Tailwind Classes
 
-1. Choosing your tech stack (Next.js, Laravel, or static HTML)
-2. Setting up the project structure
-3. Creating the homepage first
-4. Building out each section iteratively
-5. Testing and refining
+### Buttons
+- `.btn` - Base button
+- `.btn-primary` - Primary green button
+- `.btn-secondary` - Earth tone button
+- `.btn-outline` - Outline button
 
-## Contact Information
+### Layout
+- `.container-custom` - Max-width container with padding
+- `.section-padding` - Standard section padding
 
-**Company**: Green Style Co., Ltd. (บริษัท กรีน สไตล์ จำกัด)
-- **Website** (old): [To be added]
-- **Email**: [To be added]
-- **Phone**: [To be added]
-- **Location**: [To be added]
+### Typography
+- `.heading-xl` - Extra large heading
+- `.heading-lg` - Large heading
+- `.heading-md` - Medium heading
+- `.heading-sm` - Small heading
 
-## Development Team
+## Color Palette
 
-- **Developer**: [Your name]
-- **AI Assistant**: Claude (Anthropic)
-- **Additional team members**: [To be added]
+### Primary (Green)
+- `primary-500`: #22c55e (Main green)
+- `primary-600`: #16a34a
+- `primary-700`: #15803d
 
-## Version History
+### Earth Tones
+- `earth-500`: #8b7355
 
-- **v0.1** (Current) - Initial project setup and documentation
-- Planning phase
+### Accent
+- Used for highlights and CTAs
 
----
+## Connecting to Sanity
 
-## Tips for Working with Claude
+Make sure your Sanity project is set up with the schemas defined in `/docs/SANITY-SCHEMAS.md`.
 
-1. **Be specific**: Reference the exact markdown file and section you want to work on
-2. **Provide context**: Share any additional requirements or constraints
-3. **Iterate**: Don't hesitate to refine and improve the documentation as you go
-4. **Keep it updated**: Update the markdown files as decisions are made
+## Deployment
 
-## Resources
+This project is optimized for deployment on Vercel:
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel
+```
+
+## Learn More
 
 - [Next.js Documentation](https://nextjs.org/docs)
-- [Laravel Documentation](https://laravel.com/docs)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Google Fonts - Thai Support](https://fonts.google.com/?subset=thai)
-- [Thai Web Design Inspiration](https://www.siam-design.com)
-
----
-
-**Last Updated**: [Current Date]
-**Project Status**: Planning & Documentation Phase
+- [Sanity Documentation](https://www.sanity.io/docs)
+- [Tailwind CSS](https://tailwindcss.com/docs)

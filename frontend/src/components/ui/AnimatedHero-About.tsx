@@ -111,11 +111,16 @@ export default function AnimatedGlobe({ className = "" }: AnimatedGlobeProps) {
   }
 
   return (
-    <div className={className}>
+    <div className={className} style={{ willChange: 'transform' }}>
       <Canvas
         camera={{ position: [0, 0, 3.5], fov: 50 }}
         style={{ background: "transparent" }}
-        gl={{ alpha: true, antialias: true }}
+        gl={{
+          alpha: true,
+          antialias: false, // Disable antialiasing for better mobile performance
+          powerPreference: "high-performance" // Use high-performance GPU
+        }}
+        dpr={[1, 1.5]} // Limit device pixel ratio for mobile performance
       >
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} intensity={1} />

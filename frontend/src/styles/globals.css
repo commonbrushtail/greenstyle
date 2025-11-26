@@ -33,8 +33,16 @@
     --radius: 0.5rem;
   }
 
+  html {
+    /* Enable smooth scrolling on mobile */
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-white text-gray-900 antialiased;
+    /* Improve mobile scroll performance */
+    overscroll-behavior-y: none;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -116,6 +124,19 @@
 }
 
 @layer utilities {
+  /* Performance optimizations for scroll */
+  * {
+    /* Enable GPU acceleration for transforms */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Optimize sections for scrolling performance */
+  section {
+    /* Create a stacking context to isolate repaints */
+    isolation: isolate;
+  }
+
   /* Custom scrollbar */
   .scrollbar-hide::-webkit-scrollbar {
     display: none;

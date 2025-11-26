@@ -38,7 +38,7 @@ export default function AnimatedFlowerSVG() {
         trigger: containerRef.current,
         start: "top 40%", // Start when container is 50% from top of viewport (later)
         end: "bottom 20%", // End when container is 20% from top of viewport",
-        scrub: 1, // Smooth scrubbing effect
+        scrub: 0.5, // Reduce scrub value for less frequent updates (better mobile performance)
         // markers: true, // Set to true for debugging
       },
     });

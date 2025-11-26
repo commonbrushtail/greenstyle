@@ -18,7 +18,7 @@ export default function Hero() {
         <AnimatedGlobe className="w-full h-full" />
       </div>
 
-      <div className="container-custom py-12 md:py-20">
+      <div className="container-custom pt-36 pb-12 md:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Main Content - Takes up more space */}
           <div className="lg:col-span-7 space-y-8">

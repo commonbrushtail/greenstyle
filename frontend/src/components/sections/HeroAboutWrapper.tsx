@@ -23,7 +23,7 @@ export default function HeroAboutWrapper() {
         id="hero-section"
         className="relative bg-gradient-to-br from-gray-50 via-white to-primary-50 overflow-hidden min-h-[85vh] flex items-center"
       >
-        <div className="container-custom py-12 md:py-20">
+        <div className="container-custom pt-[150px] py-12 lg:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Main Content - Takes up more space */}
             <div className="lg:col-span-7 space-y-8">
@@ -93,21 +93,23 @@ export default function HeroAboutWrapper() {
         {/* 3D Globe - Static in hero section */}
         {mounted && (
           <div
-            className="absolute pointer-events-none z-10 w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[250px] md:h-[250px] lg:w-[500px] lg:h-[500px]"
+            className="mt-[50px] lg:mt-0 absolute pointer-events-none z-10 w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[250px] md:h-[250px] lg:w-[500px] lg:h-[500px]"
             style={{
               top: 'calc(30vh - 250px)',
               right: '5%',
+              transform: 'translateZ(0)', // GPU acceleration
+              willChange: 'transform',
             }}
           >
             <AnimatedGlobe className="w-full h-full" />
           </div>
         )}
 
-        {/* Decorative gradient blob - bottom right */}
-        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-tl from-primary-200/30 via-accent-200/20 to-transparent rounded-full blur-3xl pointer-events-none" />
+        {/* Decorative gradient blob - bottom right - reduced blur on mobile */}
+        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-tl from-primary-200/30 via-accent-200/20 to-transparent rounded-full blur-2xl md:blur-3xl pointer-events-none" style={{ transform: 'translateZ(0)' }} />
 
-        {/* Decorative gradient blob - top left */}
-        <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-gradient-to-br from-gray-200/40 to-transparent rounded-full blur-3xl pointer-events-none" />
+        {/* Decorative gradient blob - top left - reduced blur on mobile */}
+        <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-gradient-to-br from-gray-200/40 to-transparent rounded-full blur-2xl md:blur-3xl pointer-events-none" style={{ transform: 'translateZ(0)' }} />
       </section>
 
       {/* About Section */}
@@ -118,12 +120,15 @@ export default function HeroAboutWrapper() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left side - Animated Flower SVG */}
             <div className="relative">
-              <div className="w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[600px] flex items-center justify-center">
+              <div
+                className="w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[600px] flex items-center justify-center"
+                style={{ willChange: 'transform' }}
+              >
                 {mounted && <AnimatedFlowerSVG />}
               </div>
 
-              {/* Decorative background */}
-              <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary-50/50 via-transparent to-accent-50/30 rounded-3xl blur-3xl" />
+              {/* Decorative background - reduced blur on mobile */}
+              <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary-50/50 via-transparent to-accent-50/30 rounded-3xl blur-2xl md:blur-3xl" style={{ transform: 'translateZ(0)' }} />
             </div>
 
             {/* Right side - Content */}
@@ -202,8 +207,8 @@ export default function HeroAboutWrapper() {
           </div>
         </div>
 
-        {/* Decorative elements */}
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gradient-to-tl from-primary-100/20 to-transparent rounded-full blur-3xl pointer-events-none -z-10" />
+        {/* Decorative elements - reduced blur on mobile */}
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gradient-to-tl from-primary-100/20 to-transparent rounded-full blur-2xl md:blur-3xl pointer-events-none -z-10" style={{ transform: 'translateZ(0)' }} />
       </section>
     </div>
   );

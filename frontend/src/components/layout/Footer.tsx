@@ -23,12 +23,14 @@ export default function Footer() {
                 Green Style
               </span>
             </div>
-            <p className="text-sm mb-4">
+            <div className="text-sm mb-4">
               <div>GREEN STYLE COMPANY LIMITED</div>
-              <div className="">บริษัท กรีน สไตล์ จำกัด</div>
-            
-              
-            </p>
+              <div>บริษัท กรีน สไตล์ จำกัด</div>
+              <div className="mt-2">
+                ผู้เชี่ยวชาญด้านที่ปรึกษาสิ่งแวดล้อม
+                และผู้จัดจำหน่ายสินค้าเป็นมิตรกับสิ่งแวดล้อม
+              </div>
+            </div>
             <div className="flex space-x-4">
               <a href="#" className="hover:text-primary-400 transition-colors">
                 <FiFacebook className="w-5 h-5" />

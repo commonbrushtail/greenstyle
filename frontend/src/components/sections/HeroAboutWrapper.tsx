@@ -1,113 +1,22 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { GraduationCap, BarChart3, Lightbulb } from "lucide-react";
 import AnimatedGlobe from "@/components/ui/AnimatedHero-About";
-
-
-// Register ScrollTrigger plugin
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+import LightRays from "@/components/LightRays";
+import AnimatedFlowerSVG from "@/components/ui/AnimatedFlowerSVG";
 
 export default function HeroAboutWrapper() {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const globeRef = useRef<HTMLDivElement>(null);
-  const aboutSectionRef = useRef<HTMLElement>(null);
-  const globeTargetRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
 
-  // Ensure client-only rendering for GSAP animations
+  // Ensure client-only rendering for the globe
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    // Wait for mount to complete before setting up animations
-    if (!mounted || !wrapperRef.current || !globeRef.current || !aboutSectionRef.current || !globeTargetRef.current) return;
-
-    const ctx = gsap.context(() => {
-      // Animate the globe from Hero to About section
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: aboutSectionRef.current,
-          start: "top 80%",
-          end: "top 20%",
-          scrub: 1.5,
-          invalidateOnRefresh: true, // Recalculate on resize
-          // markers: true, // Debug markers enabled
-        },
-      });
-
-      tl.to(globeRef.current, {
-        x: () => {
-          const globeRect = globeRef.current?.getBoundingClientRect();
-          const targetRect = globeTargetRef.current?.getBoundingClientRect();
-          if (!globeRect || !targetRect) return 0;
-          return targetRect.left - globeRect.left + (targetRect.width - globeRect.width) / 2;
-        },
-        y: () => {
-          const globeRect = globeRef.current?.getBoundingClientRect();
-          const targetRect = globeTargetRef.current?.getBoundingClientRect();
-          if (!globeRect || !targetRect) return 0;
-          return targetRect.top - globeRect.top + (targetRect.height - globeRect.height) / 2;
-        },
-        scale: 1,
-        ease: "power2.inOut",
-      });
-
-      // Fade in About content
-      gsap.fromTo(
-        ".about-content",
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          stagger: 0.2,
-          scrollTrigger: {
-            trigger: aboutSectionRef.current,
-            start: "top 60%",
-            end: "top 30%",
-            scrub: 1,
-          },
-        }
-      );
-
-      // Update on window resize
-      const handleResize = () => {
-        ScrollTrigger.refresh();
-      };
-
-      window.addEventListener('resize', handleResize);
-
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      };
-    }, wrapperRef);
-
-    return () => ctx.revert();
-  }, [mounted]);
-
   return (
-    <div ref={wrapperRef} className="relative">
-      {/* Floating 3D Globe - will transition from Hero to About section */}
-      {mounted && (
-        <div
-          ref={globeRef}
-          id="floating-globe"
-          className="absolute pointer-events-none z-20 w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[250px] md:h-[250px] lg:w-[500px] lg:h-[500px]"
-          style={{
-            top: 'calc(30vh - 250px)',
-            right: '5%',
-          }}
-        >
-          <AnimatedGlobe className="w-full h-full" />
-        </div>
-      )}
+    <div className="relative">
 
       {/* Hero Section */}
       <section
@@ -181,6 +90,19 @@ export default function HeroAboutWrapper() {
           </div>
         </div>
 
+        {/* 3D Globe - Static in hero section */}
+        {mounted && (
+          <div
+            className="absolute pointer-events-none z-10 w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[250px] md:h-[250px] lg:w-[500px] lg:h-[500px]"
+            style={{
+              top: 'calc(30vh - 250px)',
+              right: '5%',
+            }}
+          >
+            <AnimatedGlobe className="w-full h-full" />
+          </div>
+        )}
+
         {/* Decorative gradient blob - bottom right */}
         <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-tl from-primary-200/30 via-accent-200/20 to-transparent rounded-full blur-3xl pointer-events-none" />
 
@@ -189,20 +111,15 @@ export default function HeroAboutWrapper() {
       </section>
 
       {/* About Section */}
-      <section
-        ref={aboutSectionRef}
-        className="relative bg-white overflow-hidden section-padding"
-      >
-        <div className="container-custom">
+      <section className="relative bg-white overflow-hidden section-padding">
+     
+
+        <div className="container-custom relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left side - Target position for 3D Globe */}
+            {/* Left side - Animated Flower SVG */}
             <div className="relative">
-              <div
-                ref={globeTargetRef}
-                className="w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[600px] flex items-center justify-center"
-              >
-                {/* This is where the globe will land */}
-                <div className="w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[250px] md:h-[250px] lg:w-[500px] lg:h-[500px]" />
+              <div className="w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[600px] flex items-center justify-center">
+                {mounted && <AnimatedFlowerSVG />}
               </div>
 
               {/* Decorative background */}
@@ -211,7 +128,7 @@ export default function HeroAboutWrapper() {
 
             {/* Right side - Content */}
             <div className="space-y-8">
-              <div className="about-content">
+              <div>
                 <h2 className="heading-xl text-gray-900">
                   พันธมิตรของคุณ
                   <br />
@@ -219,7 +136,7 @@ export default function HeroAboutWrapper() {
                 </h2>
               </div>
 
-              <div className="about-content space-y-4">
+              <div className="space-y-4">
                 <p className="text-lg text-gray-700 leading-relaxed">
                   <strong className="text-gray-900 font-display">
                     Green Style Co., Ltd.
@@ -238,7 +155,7 @@ export default function HeroAboutWrapper() {
               </div>
 
               {/* Key Features */}
-              <div className="about-content space-y-4 pt-4">
+              <div className="space-y-4 pt-4">
                 <div className="flex items-start gap-4 group">
                   <div className="flex-shrink-0 w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center group-hover:bg-primary-200 transition-colors">
                     <GraduationCap className="w-6 h-6 text-primary-600" />

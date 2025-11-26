@@ -24,8 +24,10 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-sm mb-4">
-              บริษัท กรีน สไตล์ จำกัด ผู้เชี่ยวชาญด้านที่ปรึกษาสิ่งแวดล้อม
-              และผู้จัดจำหน่ายสินค้าเป็นมิตรกับสิ่งแวดล้อม
+              <div>GREEN STYLE COMPANY LIMITED</div>
+              <div className="">บริษัท กรีน สไตล์ จำกัด</div>
+            
+              
             </p>
             <div className="flex space-x-4">
               <a href="#" className="hover:text-primary-400 transition-colors">
@@ -107,20 +109,21 @@ export default function Footer() {
               <li className="flex items-start space-x-2">
                 <FiMapPin className="w-5 h-5 mt-0.5 flex-shrink-0" />
                 <span>
-                  [ที่อยู่บริษัท]<br />
-                  กรุงเทพมหานคร
+                  60 หมู่บ้านกลางเมืองรามอินทรา-วัชรพล<br />
+                  คลองถนน, สายไหม<br />
+                  กรุงเทพมหานคร 10220
                 </span>
               </li>
               <li className="flex items-center space-x-2">
                 <FiPhone className="w-5 h-5 flex-shrink-0" />
-                <a href="tel:+66" className="hover:text-primary-400 transition-colors">
-                  [เบอร์โทรศัพท์]
+                <a href="tel:0895150247" className="hover:text-primary-400 transition-colors">
+                  089-515-0247
                 </a>
               </li>
               <li className="flex items-center space-x-2">
                 <FiMail className="w-5 h-5 flex-shrink-0" />
-                <a href="mailto:info@greenstyle.co.th" className="hover:text-primary-400 transition-colors">
-                  [อีเมล]
+                <a href="mailto:greenstyle.se@gmail.com" className="hover:text-primary-400 transition-colors">
+                  greenstyle.se@gmail.com
                 </a>
               </li>
             </ul>

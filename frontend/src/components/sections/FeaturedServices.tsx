@@ -39,7 +39,7 @@ const otherServices = [
 
 export default function FeaturedServices() {
   return (
-    <section className="section-padding bg-white">
+    <section className="">
   
 
       {/* Main Service - Training Courses (Full Background) */}

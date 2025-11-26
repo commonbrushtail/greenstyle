@@ -116,7 +116,7 @@ export default function FeaturedServices() {
       {/* Other Services - Two Columns */}
       <div className="py-16 md:py-20 relative overflow-hidden">
         {/* Animated Gradient Background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-50/20 via-green-50 to-blue-50/70 animate-gradient"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-50/20 via-green-50 to-blue-50/70"></div>
         {/* Decorative Background Elements */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-1/4 left-0 w-96 h-96 bg-primary-400 rounded-full blur-3xl"></div>

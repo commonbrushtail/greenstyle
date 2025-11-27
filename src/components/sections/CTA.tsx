@@ -4,7 +4,7 @@ export default function CTA() {
   return (
     <section className="section-padding bg-white py-[200px] relative overflow-hidden">
       {/* Threads Background */}
-      <div className="absolute inset-0 z-0 opacity-20 -rotate-[30deg]">
+      <div className="absolute inset-0 z-0 opacity-40 -rotate-[30deg]">
         <Threads
         amplitude={1}
         distance={4}

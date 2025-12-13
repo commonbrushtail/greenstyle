@@ -34,7 +34,9 @@
       "Bash(Select-String -Pattern \"https://\")",
       "Bash(Select-Object -First 2)",
       "Bash(git commit -m \"$(cat <<''EOF''\nfix: resolve hydration error in Footer component\n\n- Change <p> to <div> to properly contain child div elements\n- Fixes React hydration error for invalid HTML nesting\n- Add proper company description text\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
-      "Bash(git -C /Users/suebphatt/apps/greenstyle show 7fe76b1)"
+      "Bash(git -C /Users/suebphatt/apps/greenstyle show 7fe76b1)",
+      "Bash(Get-Process node -ErrorAction SilentlyContinue)",
+      "Bash(Stop-Process -Force)"
     ],
     "deny": [],
     "ask": []

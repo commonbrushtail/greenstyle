@@ -17,7 +17,6 @@ const navigation = [
       { name: "คาร์บอนฟุตพริ้นท์ผลิตภัณฑ์ (CFP)", href: "/services/cfp" },
     ],
   },
-  { name: "สินค้า", href: "/products" },
   { name: "ผลงาน", href: "/case-studies" },
   { name: "ติดต่อเรา", href: "/contact" },
 ];

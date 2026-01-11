@@ -2,7 +2,15 @@
   "permissions": {
     "allow": [
       "Bash(npx fix-react2shell-next)",
-      "Bash(npx fix-react2shell-next --fix)"
+      "Bash(npx fix-react2shell-next --fix)",
+      "Bash(vercel ls --limit 5)",
+      "Bash(vercel inspect https://greenstyle-rdv7dmugr-commonbrushtails-projects.vercel.app --logs)",
+      "Bash(vercel alias ls greenstyle)",
+      "Bash(vercel alias ls)",
+      "Bash(vercel inspect greenstyle-nxib3f4g6-commonbrushtails-projects.vercel.app --logs)",
+      "Bash(npm install)",
+      "Bash(npm run build)",
+      "Bash(git commit -m \"refactor: remove Sanity CMS dependencies and clean up codebase\")"
     ],
     "deny": [],
     "ask": []

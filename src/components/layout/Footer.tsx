@@ -15,16 +15,16 @@ export default function Footer() {
               <Image
                 src="/images/logo-hd.png"
                 alt="Green Style"
-                width={80}
-                height={80}
-                className="w-20 h-20 object-contain"
+                width={60}
+                height={60}
+                className=" object-contain"
               />
               <span className="font-display font-bold text-xl text-white">
                 Green Style
               </span>
             </div>
             <div className="text-sm mb-4">
-              <div>GREEN STYLE COMPANY LIMITED</div>
+             
               <div>บริษัท กรีน สไตล์ จำกัด</div>
               <div className="mt-2">
                 ผู้เชี่ยวชาญด้านที่ปรึกษาสิ่งแวดล้อม

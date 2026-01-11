@@ -10,7 +10,8 @@
       "Bash(vercel inspect greenstyle-nxib3f4g6-commonbrushtails-projects.vercel.app --logs)",
       "Bash(npm install)",
       "Bash(npm run build)",
-      "Bash(git commit -m \"refactor: remove Sanity CMS dependencies and clean up codebase\")"
+      "Bash(git commit -m \"refactor: remove Sanity CMS dependencies and clean up codebase\")",
+      "Bash(vercel inspect greenstyle-9o3t536ji-commonbrushtails-projects.vercel.app --logs)"
     ],
     "deny": [],
     "ask": []

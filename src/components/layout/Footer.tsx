@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { FiFacebook, FiInstagram, FiLinkedin, FiMail, FiPhone, FiMapPin } from "react-icons/fi";
+import { FiFacebook, FiMail, FiPhone, FiMapPin } from "react-icons/fi";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -13,11 +13,11 @@ export default function Footer() {
           <div>
             <div className="flex items-center space-x-3 mb-4">
               <Image
-                src="/images/logo.png"
+                src="/images/logo-hd.png"
                 alt="Green Style"
-                width={50}
-                height={50}
-                className="w-12 h-12 object-contain"
+                width={80}
+                height={80}
+                className="w-20 h-20 object-contain"
               />
               <span className="font-display font-bold text-xl text-white">
                 Green Style
@@ -32,14 +32,8 @@ export default function Footer() {
               </div>
             </div>
             <div className="flex space-x-4">
-              <a href="#" className="hover:text-primary-400 transition-colors">
+              <a href="https://www.facebook.com/GreenstyleSE/" target="_blank" rel="noopener noreferrer" className="hover:text-primary-400 transition-colors">
                 <FiFacebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="hover:text-primary-400 transition-colors">
-                <FiInstagram className="w-5 h-5" />
-              </a>
-              <a href="#" className="hover:text-primary-400 transition-colors">
-                <FiLinkedin className="w-5 h-5" />
               </a>
             </div>
           </div>

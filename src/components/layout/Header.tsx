@@ -31,11 +31,11 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3">
             <Image
-              src="/images/logo.png"
+              src="/images/logo-hd.png"
               alt="Green Style"
-              width={50}
-              height={50}
-              className="w-12 h-12 object-contain"
+              width={55}
+              height={55}
+              className="object-contain"
               priority
             />
             <span className="font-display font-bold text-xl text-gray-900 hidden sm:block">

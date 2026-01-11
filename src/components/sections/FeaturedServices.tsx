@@ -40,7 +40,7 @@ const otherServices = [
 export default function FeaturedServices() {
   return (
     <section className="">
-  
+
 
       {/* Main Service - Training Courses (Full Background) */}
       <div className="py-16 md:py-20 bg-gradient-to-br from-primary-50 via-white to-primary-50 relative overflow-hidden ">

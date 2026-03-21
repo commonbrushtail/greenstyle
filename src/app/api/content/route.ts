@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
-import { sql } from "@/lib/db";
+import { getDb } from "@/lib/db";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const page = searchParams.get("page");
 
   try {
+    const sql = getDb();
     const rows = page
       ? await sql`SELECT * FROM content WHERE page_slug = ${page} ORDER BY section_key`
       : await sql`SELECT * FROM content ORDER BY page_slug, section_key`;
@@ -18,6 +19,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    const sql = getDb();
     const { page_slug, section_key, content } = await request.json();
 
     const rows = await sql`

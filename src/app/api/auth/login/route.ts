@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
-import { sql } from "@/lib/db";
+import { getDb } from "@/lib/db";
 import bcrypt from "bcryptjs";
 import { createToken } from "@/lib/auth";
 
 export async function POST(request: Request) {
   try {
+    const sql = getDb();
     const { email, password } = await request.json();
 
     const rows = await sql`

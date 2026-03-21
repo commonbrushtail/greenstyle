@@ -1,4 +1,4 @@
-import { sql } from "@/lib/db";
+import { getDb } from "@/lib/db";
 import { defaultContent } from "@/lib/default-content";
 
 export async function getContent<T = Record<string, unknown>>(
@@ -6,6 +6,7 @@ export async function getContent<T = Record<string, unknown>>(
   sectionKey: string
 ): Promise<T> {
   try {
+    const sql = getDb();
     const rows = await sql`
       SELECT content FROM content
       WHERE page_slug = ${pageSlug} AND section_key = ${sectionKey}
@@ -22,6 +23,7 @@ export async function getPageContent(
   pageSlug: string
 ): Promise<Record<string, unknown>> {
   try {
+    const sql = getDb();
     const rows = await sql`
       SELECT section_key, content FROM content
       WHERE page_slug = ${pageSlug}

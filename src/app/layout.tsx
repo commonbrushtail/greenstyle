@@ -15,8 +15,7 @@
 
 import { Sarabun, Prompt } from "next/font/google";
 import "@/styles/globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import LayoutWrapper from "@/components/layout/LayoutWrapper";
 import type { Metadata } from "next";
 
 // Configure Thai fonts
@@ -48,11 +47,7 @@ export default function RootLayout({
   return (
     <html lang="th" className={`${sarabun.variable} ${prompt.variable}`} suppressHydrationWarning>
       <body className="font-sans">
-        <Header />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <Footer />
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );

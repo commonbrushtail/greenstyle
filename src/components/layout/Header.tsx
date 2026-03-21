@@ -31,20 +31,17 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3">
             <Image
-              src="/images/logo-hd.png"
+              src="/images/logo.png"
               alt="Green Style"
               width={55}
               height={55}
               className="object-contain"
               priority
             />
-            <span className="font-display font-bold text-xl text-gray-900 hidden sm:block">
-              Green Style
-            </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-8 ml-auto">
             {navigation.map((item) => (
               <div key={item.name} className="relative group">
                 <Link
@@ -72,13 +69,6 @@ export default function Header() {
                 )}
               </div>
             ))}
-          </div>
-
-          {/* CTA Button */}
-          <div className="hidden lg:block">
-            <Link href="/contact" className="btn btn-primary">
-              ขอใบเสนอราคา
-            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -122,15 +112,6 @@ export default function Header() {
                 )}
               </div>
             ))}
-            <div className="pt-4">
-              <Link
-                href="/contact"
-                className="btn btn-primary w-full"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                ขอใบเสนอราคา
-              </Link>
-            </div>
           </div>
         )}
       </nav>

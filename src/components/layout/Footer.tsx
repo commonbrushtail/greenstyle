@@ -6,22 +6,19 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="bg-gray-100 text-gray-600">
       <div className="container-custom py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
             <div className="flex items-center space-x-3 mb-4">
               <Image
-                src="/images/logo-hd.png"
+                src="/images/logo.png"
                 alt="Green Style"
                 width={60}
                 height={60}
-                className=" object-contain"
+                className="object-contain"
               />
-              <span className="font-display font-bold text-xl text-white">
-                Green Style
-              </span>
             </div>
             <div className="text-sm mb-4">
              
@@ -40,7 +37,7 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="font-display font-semibold text-white mb-4">
+            <h3 className="font-display font-semibold text-gray-900 mb-4">
               บริการของเรา
             </h3>
             <ul className="space-y-2 text-sm">
@@ -69,7 +66,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-display font-semibold text-white mb-4">
+            <h3 className="font-display font-semibold text-gray-900 mb-4">
               ลิงก์ด่วน
             </h3>
             <ul className="space-y-2 text-sm">
@@ -93,7 +90,7 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h3 className="font-display font-semibold text-white mb-4">
+            <h3 className="font-display font-semibold text-gray-900 mb-4">
               ติดต่อเรา
             </h3>
             <ul className="space-y-3 text-sm">
@@ -122,7 +119,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800 mt-12 pt-8 text-sm text-center">
+        <div className="border-t border-gray-300 mt-12 pt-8 text-sm text-center">
           <p>
             © {currentYear} Green Style Co., Ltd. (บริษัท กรีน สไตล์ จำกัด) All rights reserved.
           </p>

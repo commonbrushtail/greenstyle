@@ -1,74 +1,20 @@
 import Link from "next/link";
 import { BarChart3, Award, TrendingDown, Building2, Globe, Target, CheckCircle2 } from "lucide-react";
+import { getPageContent } from "@/lib/content";
 
-const benefits = [
-  {
-    icon: Award,
-    title: "การรับรองระดับประเทศ",
-    description:
-      "รับการรับรองจาก องค์การบริหารจัดการก๊าซเรือนกระจก (อบก.) และทราบปริมาณการปล่อยคาร์บอนฟุตพริ้นท์ขององค์กร",
-  },
-  {
-    icon: TrendingDown,
-    title: "ลดต้นทุนค่าใช้จ่าย",
-    description:
-      "นำไปสู่การจัดการลดการปล่อยคาร์บอนฟุตพริ้นท์ได้ถูกจุด เพื่อลดต้นทุนจากการบริหารจัดการทรัพยากรอย่างเหมาะสม",
-  },
-  {
-    icon: Target,
-    title: "Carbon Neutral",
-    description:
-      "สามารถนำไปสู่การชดเชยคาร์บอน (Carbon Offset) และการปล่อยคาร์บอนเป็นศูนย์ (Carbon Neutral) ได้",
-  },
-  {
-    icon: Building2,
-    title: "สร้างภาพลักษณ์ที่ดี",
-    description:
-      "สร้างภาพลักษณ์ที่ดีให้กับองค์กร ในการมีส่วนร่วมรับผิดชอบต่อสิ่งแวดล้อมและสังคม",
-  },
-  {
-    icon: Globe,
-    title: "เพิ่มโอกาสทางธุรกิจ",
-    description:
-      "เพิ่มโอกาสทางธุรกิจ ให้สามารถแข่งขันได้ในเวทีการค้าโลก",
-  },
-  {
-    icon: CheckCircle2,
-    title: "มีส่วนร่วมกับประเทศ",
-    description:
-      "มีส่วนร่วมในการลดปริมาณการปล่อยก๊าซเรือนกระจกของประเทศไทย ตามเป้าหมาย Paris Agreement",
-  },
-];
+const iconList = [Award, TrendingDown, Target, Building2, Globe, CheckCircle2];
 
-const steps = [
-  {
-    number: "01",
-    title: "กำหนดขอบเขตการประเมิน",
-    description: "กำหนดขอบเขตองค์กร ระยะเวลา และแหล่งปล่อยก๊าซเรือนกระจก",
-  },
-  {
-    number: "02",
-    title: "รวบรวมข้อมูล",
-    description: "เก็บรวบรวมข้อมูลการใช้พลังงาน ทรัพยากร และกิจกรรมขององค์กร",
-  },
-  {
-    number: "03",
-    title: "คำนวณคาร์บอนฟุตพริ้นท์",
-    description: "คำนวณปริมาณก๊าซเรือนกระจกตามมาตรฐาน ISO 14064-1",
-  },
-  {
-    number: "04",
-    title: "จัดทำรายงาน",
-    description: "จัดทำรายงานคาร์บอนฟุตพริ้นท์และส่งขอการรับรอง",
-  },
-  {
-    number: "05",
-    title: "รับการรับรองและปรับปรุง",
-    description: "รับการรับรองจาก อบก. และวางแผนลดการปล่อยก๊าซเรือนกระจก",
-  },
-];
+export const dynamic = "force-dynamic";
 
-export default function CFOPage() {
+export default async function CFOPage() {
+  const content = await getPageContent("services-cfo");
+  const hero = content.hero as { heading: string; subtitle: string; description: string };
+  const whatIs = content.what_is as { heading: string; paragraphs: string[] };
+  const benefits = content.benefits as { heading: string; description: string; items: { title: string; description: string }[] };
+  const process = content.process as { heading: string; description: string; steps: { number: string; title: string; description: string }[] };
+  const reference = content.reference as { heading: string; text: string };
+  const cta = content.cta as { heading: string; description: string };
+
   return (
     <>
       {/* Hero Section */}
@@ -82,14 +28,13 @@ export default function CFOPage() {
               <BarChart3 className="w-12 h-12 text-primary-600" />
             </div>
             <h1 className="heading-xl mb-6">
-              คาร์บอนฟุตพริ้นท์<span className="text-primary-600">องค์กร</span>
+              {hero.heading}
             </h1>
             <p className="text-lg text-gray-600 mb-2">
-              Carbon Footprint Organization (CFO)
+              {hero.subtitle}
             </p>
             <p className="text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto">
-              บริการที่ปรึกษาการจัดทำคาร์บอนฟุตพริ้นท์สำหรับองค์กร
-              เพื่อทราบปริมาณการปล่อยก๊าซเรือนกระจกและนำไปสู่การลดอย่างเป็นรูปธรรม
+              {hero.description}
             </p>
           </div>
         </div>
@@ -100,22 +45,14 @@ export default function CFOPage() {
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <h2 className="heading-lg mb-6 text-center">
-              "คาร์บอนฟุตพริ้นท์ขององค์กร" <span className="text-primary-600">คืออะไร</span>
+              {whatIs.heading}
             </h2>
             <div className="bg-gradient-to-br from-primary-50 to-white rounded-3xl p-8 md:p-12 border border-primary-100 shadow-sm">
-              <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                "คาร์บอนฟุตพริ้นท์ขององค์กร" คือ{" "}
-                <strong className="text-primary-600">
-                  ปริมาณการปล่อยและดูดกลับก๊าซเรือนกระจก
-                </strong>{" "}
-                (Greenhouse gas emissions and removals) ที่เกิดขึ้นจากกิจกรรมการดำเนินงานขององค์กร
-                วัดรวมอยู่ในรูปของตัน (กิโลกรัม) ของก๊าซคาร์บอนไดออกไซด์เทียบเท่า
-              </p>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                เรามีบริการเป็นที่ปรึกษาการจัดทำคาร์บอนฟุตพริ้นท์สำหรับองค์กร (Carbon Footprint for Organization
-                หรือ Corporate Carbon Footprint : CCF) ซึ่งจะทำให้องค์กรทราบถึงปริมาณการปล่อยก๊าซเรือนกระจก
-                และนำไปสู่การลดปริมาณก๊าซเรือนกระจกได้อย่างเป็นรูปธรรม
-              </p>
+              {whatIs.paragraphs.map((paragraph, index) => (
+                <p key={index} className={`text-lg text-gray-700 leading-relaxed${index < whatIs.paragraphs.length - 1 ? " mb-6" : ""}`}>
+                  {paragraph}
+                </p>
+              ))}
             </div>
           </div>
         </div>
@@ -125,15 +62,15 @@ export default function CFOPage() {
       <section className="section-padding bg-gradient-to-br from-gray-50 to-white">
         <div className="container-custom">
           <div className="text-center mb-12">
-            <h2 className="heading-lg mb-4">ประโยชน์ที่ได้รับ</h2>
+            <h2 className="heading-lg mb-4">{benefits.heading}</h2>
             <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-              การจัดทำคาร์บอนฟุตพริ้นท์องค์กรจะช่วยให้องค์กรของคุณได้รับประโยชน์ในหลากหลายด้าน
+              {benefits.description}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {benefits.map((benefit) => {
-              const Icon = benefit.icon;
+            {benefits.items.map((benefit, index) => {
+              const Icon = iconList[index] || CheckCircle2;
               return (
                 <div
                   key={benefit.title}
@@ -159,15 +96,15 @@ export default function CFOPage() {
       <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="text-center mb-12">
-            <h2 className="heading-lg mb-4">ขั้นตอนการดำเนินงาน</h2>
+            <h2 className="heading-lg mb-4">{process.heading}</h2>
             <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-              กระบวนการประเมินคาร์บอนฟุตพริ้นท์องค์กรตามมาตรฐาน ISO 14064-1
+              {process.description}
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto">
             <div className="space-y-6">
-              {steps.map((step, index) => (
+              {process.steps.map((step, index) => (
                 <div
                   key={step.number}
                   className="relative bg-gradient-to-r from-primary-50 to-white rounded-2xl p-6 md:p-8 border border-primary-100 hover:shadow-lg transition-all group"
@@ -183,7 +120,7 @@ export default function CFOPage() {
                       <p className="text-gray-700">{step.description}</p>
                     </div>
                   </div>
-                  {index < steps.length - 1 && (
+                  {index < process.steps.length - 1 && (
                     <div className="absolute left-8 top-full w-0.5 h-6 bg-primary-200 hidden md:block" />
                   )}
                 </div>
@@ -197,10 +134,9 @@ export default function CFOPage() {
       <section className="section-padding bg-gradient-to-br from-primary-50 via-white to-accent-50">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-primary-100 shadow-sm">
-            <h3 className="text-lg font-bold text-gray-900 mb-3">ข้อมูลอ้างอิง</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-3">{reference.heading}</h3>
             <p className="text-gray-700 leading-relaxed">
-              หนังสือแนวทางการประเมินคาร์บอนฟุตพริ้นท์ขององค์กร โดย องค์การบริหารจัดการก๊าซเรือนกระจก
-              (องค์การมหาชน) พิมพ์ครั้งที่ 5 (ฉบับปรับปรุงครั้งที่ 3, ตุลาคม 2559)
+              {reference.text}
             </p>
           </div>
         </div>
@@ -210,9 +146,9 @@ export default function CFOPage() {
       <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="bg-gradient-to-r from-primary-600 to-primary-700 rounded-3xl p-12 text-center text-white">
-            <h2 className="heading-lg mb-4">พร้อมเริ่มต้นจัดทำ CFO?</h2>
+            <h2 className="heading-lg mb-4">{cta.heading}</h2>
             <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-              ติดต่อเราเพื่อสอบถามรายละเอียดและค่าใช้จ่ายในการจัดทำคาร์บอนฟุตพริ้นท์องค์กร
+              {cta.description}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

@@ -1,13 +1,9 @@
-import About from "@/components/sections/About";
-import Testimonials from "@/components/sections/Testimonials";
-import CTA from "@/components/sections/CTA";
+import SectionList from "@/components/sections-builder/SectionList";
+import { getPageSections } from "@/lib/content";
 
-export default function AboutPage() {
-  return (
-    <>
-      <About />
-      <Testimonials />
-      <CTA />
-    </>
-  );
+export const dynamic = "force-dynamic";
+
+export default async function AboutPage() {
+  const sections = await getPageSections("about");
+  return <SectionList pageSlug="about" initialSections={sections} />;
 }

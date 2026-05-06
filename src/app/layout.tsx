@@ -17,6 +17,9 @@ import { Sarabun, Prompt } from "next/font/google";
 import "@/styles/globals.css";
 import LayoutWrapper from "@/components/layout/LayoutWrapper";
 import type { Metadata } from "next";
+import { getSiteStatus } from "@/lib/site-status";
+import { getSession } from "@/lib/auth";
+import { getGlobalSections } from "@/lib/content";
 
 // Configure Thai fonts
 const sarabun = Sarabun({
@@ -39,15 +42,30 @@ export const metadata: Metadata = {
   keywords: ['คาร์บอนฟุตพริ้นท์', 'ที่ปรึกษาสิ่งแวดล้อม', 'สินค้าเป็นมิตรกับสิ่งแวดล้อม', 'Carbon Footprint', 'CFO', 'CFP'],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [siteStatus, session, globalSections] = await Promise.all([
+    getSiteStatus(),
+    getSession(),
+    getGlobalSections(),
+  ]);
+  const userIsAdmin = !!session;
+  const adminEmail = session?.email ?? null;
+
   return (
     <html lang="th" className={`${sarabun.variable} ${prompt.variable}`} suppressHydrationWarning>
       <body className="font-sans">
-        <LayoutWrapper>{children}</LayoutWrapper>
+        <LayoutWrapper
+          siteStatus={siteStatus}
+          userIsAdmin={userIsAdmin}
+          adminEmail={adminEmail}
+          globalSections={globalSections}
+        >
+          {children}
+        </LayoutWrapper>
       </body>
     </html>
   );

@@ -1,20 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ContentEditorProps {
   content: Record<string, unknown>;
-  onSave: (content: Record<string, unknown>) => Promise<boolean>;
+  /** Called when user clicks Save (uncontrolled mode only). */
+  onSave?: (content: Record<string, unknown>) => Promise<boolean>;
+  /** Called on every field change. When provided, the editor is controlled by parent. */
+  onChange?: (content: Record<string, unknown>) => void;
+  /** Hide the internal Save/Reset buttons (parent provides them). */
+  hideButtons?: boolean;
 }
 
-export default function ContentEditor({ content, onSave }: ContentEditorProps) {
-  const [data, setData] = useState<Record<string, unknown>>(
+export default function ContentEditor({
+  content,
+  onSave,
+  onChange,
+  hideButtons,
+}: ContentEditorProps) {
+  const [data, setData] = useState<Record<string, unknown>>(() =>
     JSON.parse(JSON.stringify(content))
   );
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
 
+  // When the controlled `content` prop changes externally (e.g. parent reset),
+  // sync the internal state.
+  useEffect(() => {
+    setData(JSON.parse(JSON.stringify(content)));
+  }, [content]);
+
+  const apply = (next: Record<string, unknown>) => {
+    setData(next);
+    onChange?.(next);
+  };
+
   const handleSave = async () => {
+    if (!onSave) return;
     setSaving(true);
     const success = await onSave(data);
     setSaving(false);
@@ -25,47 +47,41 @@ export default function ContentEditor({ content, onSave }: ContentEditorProps) {
   };
 
   const handleReset = () => {
-    setData(JSON.parse(JSON.stringify(content)));
+    apply(JSON.parse(JSON.stringify(content)));
   };
 
   const updateValue = (path: string[], value: unknown) => {
-    setData((prev) => {
-      const next = JSON.parse(JSON.stringify(prev));
-      let obj = next;
-      for (let i = 0; i < path.length - 1; i++) {
-        obj = obj[path[i]];
-      }
-      obj[path[path.length - 1]] = value;
-      return next;
-    });
+    const next = JSON.parse(JSON.stringify(data));
+    let obj = next;
+    for (let i = 0; i < path.length - 1; i++) {
+      obj = obj[path[i]];
+    }
+    obj[path[path.length - 1]] = value;
+    apply(next);
   };
 
   const addArrayItem = (path: string[], template: unknown) => {
-    setData((prev) => {
-      const next = JSON.parse(JSON.stringify(prev));
-      let obj = next;
-      for (const key of path) {
-        obj = obj[key];
-      }
-      (obj as unknown[]).push(
-        typeof template === "string"
-          ? ""
-          : JSON.parse(JSON.stringify(template))
-      );
-      return next;
-    });
+    const next = JSON.parse(JSON.stringify(data));
+    let obj = next;
+    for (const key of path) {
+      obj = obj[key];
+    }
+    (obj as unknown[]).push(
+      typeof template === "string"
+        ? ""
+        : JSON.parse(JSON.stringify(template))
+    );
+    apply(next);
   };
 
   const removeArrayItem = (path: string[], index: number) => {
-    setData((prev) => {
-      const next = JSON.parse(JSON.stringify(prev));
-      let obj = next;
-      for (const key of path) {
-        obj = obj[key];
-      }
-      (obj as unknown[]).splice(index, 1);
-      return next;
-    });
+    const next = JSON.parse(JSON.stringify(data));
+    let obj = next;
+    for (const key of path) {
+      obj = obj[key];
+    }
+    (obj as unknown[]).splice(index, 1);
+    apply(next);
   };
 
   return (
@@ -74,21 +90,23 @@ export default function ContentEditor({ content, onSave }: ContentEditorProps) {
         {renderFields(data, [], updateValue, addArrayItem, removeArrayItem)}
       </div>
 
-      <div className="flex gap-3 mt-6 pt-4 border-t border-gray-200">
-        <button
-          onClick={handleSave}
-          disabled={saving}
-          className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 transition-colors text-sm font-medium"
-        >
-          {saving ? "Saving..." : saved ? "Saved!" : "Save"}
-        </button>
-        <button
-          onClick={handleReset}
-          className="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium"
-        >
-          Reset
-        </button>
-      </div>
+      {!hideButtons && (
+        <div className="flex gap-3 mt-6 pt-4 border-t border-gray-200">
+          <button
+            onClick={handleSave}
+            disabled={saving}
+            className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 transition-colors text-sm font-medium"
+          >
+            {saving ? "Saving..." : saved ? "Saved!" : "Save"}
+          </button>
+          <button
+            onClick={handleReset}
+            className="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium"
+          >
+            Reset
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -142,6 +160,31 @@ function renderFields(
             onChange={(e) => updateValue(currentPath, Number(e.target.value))}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none text-sm"
           />
+        </div>
+      );
+    }
+
+    if (typeof value === "boolean") {
+      return (
+        <div key={key} className="flex items-center justify-between bg-gray-50 rounded-lg p-4">
+          <label className="text-sm font-medium text-gray-700 capitalize">
+            {label}
+          </label>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={value}
+            onClick={() => updateValue(currentPath, !value)}
+            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+              value ? "bg-primary-600" : "bg-gray-300"
+            }`}
+          >
+            <span
+              className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                value ? "translate-x-6" : "translate-x-1"
+              }`}
+            />
+          </button>
         </div>
       );
     }
@@ -253,6 +296,7 @@ function createTemplate(obj: Record<string, unknown>): Record<string, unknown> {
   for (const [key, value] of Object.entries(obj)) {
     if (typeof value === "string") template[key] = "";
     else if (typeof value === "number") template[key] = 0;
+    else if (typeof value === "boolean") template[key] = false;
     else if (Array.isArray(value)) template[key] = [];
     else if (typeof value === "object" && value !== null)
       template[key] = createTemplate(value as Record<string, unknown>);

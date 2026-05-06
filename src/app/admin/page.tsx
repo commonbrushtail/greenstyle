@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import SiteVisibilityToggle from "@/components/admin/SiteVisibilityToggle";
 
 interface ContentRow {
   id: string;
@@ -48,6 +49,8 @@ export default function AdminDashboard() {
   return (
     <div>
       <h1 className="text-2xl font-bold text-gray-900 mb-6">Dashboard</h1>
+
+      <SiteVisibilityToggle />
 
       {loading ? (
         <p className="text-gray-500">Loading...</p>

@@ -392,5 +392,11 @@ export const defaultContent: Record<string, Record<string, any>> = {
       email: "greenstyle.se@gmail.com",
       copyright: "Green Style Co., Ltd. (บริษัท กรีน สไตล์ จำกัด) All rights reserved.",
     },
+    site_status: {
+      live: true,
+      heading: "เร็วๆ นี้",
+      message:
+        "เว็บไซต์ของเรากำลังจะเปิดใช้งาน\nกรุณากลับมาใหม่อีกครั้งเร็วๆ นี้",
+    },
   },
 };

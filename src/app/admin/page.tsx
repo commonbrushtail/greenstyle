@@ -26,15 +26,28 @@ const pageLabels: Record<string, string> = {
 export default function AdminDashboard() {
   const [content, setContent] = useState<ContentRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/content")
       .then((r) => r.json())
       .then((data) => {
-        setContent(data);
+        if (Array.isArray(data)) {
+          setContent(data);
+        } else {
+          setError(
+            (data && typeof data === "object" && "error" in data
+              ? (data as { error?: string; details?: string }).details ||
+                (data as { error?: string }).error
+              : null) || "Unexpected response from /api/content"
+          );
+        }
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch((e) => {
+        setError(e instanceof Error ? e.message : "Failed to load content");
+        setLoading(false);
+      });
   }, []);
 
   const grouped = content.reduce(
@@ -52,7 +65,20 @@ export default function AdminDashboard() {
 
       <SiteVisibilityToggle />
 
-      {loading ? (
+      {error ? (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+          <h2 className="text-lg font-semibold text-red-800 mb-2">
+            ไม่สามารถโหลดข้อมูลได้
+          </h2>
+          <p className="text-sm text-red-700 mb-3">{error}</p>
+          <p className="text-sm text-red-700">
+            หากเป็นการอัพเดทครั้งแรก ให้รัน:{" "}
+            <code className="bg-red-100 px-2 py-1 rounded">
+              node scripts/migrate-page-builder.mjs
+            </code>
+          </p>
+        </div>
+      ) : loading ? (
         <p className="text-gray-500">Loading...</p>
       ) : content.length === 0 ? (
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">

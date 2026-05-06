@@ -7,8 +7,10 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const page = searchParams.get("page");
 
+  const sql = getDb();
+  // Try the new columns first; fall back to the old shape if the
+  // migrate-page-builder script hasn't run yet.
   try {
-    const sql = getDb();
     const rows = page
       ? await sql`
           SELECT id, page_slug, section_key, section_type, display_order, content, updated_at
@@ -22,11 +24,33 @@ export async function GET(request: Request) {
           ORDER BY page_slug, display_order, section_key
         `;
     return NextResponse.json(rows);
-  } catch (e) {
-    return NextResponse.json(
-      { error: "Server error", details: String(e) },
-      { status: 500 }
-    );
+  } catch {
+    try {
+      const rows = page
+        ? await sql`
+            SELECT id, page_slug, section_key, content, updated_at
+            FROM content
+            WHERE page_slug = ${page}
+            ORDER BY section_key
+          `
+        : await sql`
+            SELECT id, page_slug, section_key, content, updated_at
+            FROM content
+            ORDER BY page_slug, section_key
+          `;
+      // Pad missing columns so consumers can still rely on the shape.
+      const padded = rows.map((r) => ({
+        ...r,
+        section_type: null,
+        display_order: null,
+      }));
+      return NextResponse.json(padded);
+    } catch (e) {
+      return NextResponse.json(
+        { error: "Server error", details: String(e) },
+        { status: 500 }
+      );
+    }
   }
 }
 

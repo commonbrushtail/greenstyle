@@ -41,8 +41,9 @@ export interface SectionDef {
 export const sectionRegistry: Record<string, SectionDef> = {
   "hero-home": {
     type: "hero-home",
-    label: "Home Hero",
-    description: "Big home hero with animated globe, multi-line heading, and stats card.",
+    label: "แบนเนอร์หน้าหลัก",
+    description:
+      "แบนเนอร์ใหญ่ของหน้าหลัก พร้อมลูกโลก 3 มิติ หัวข้อหลายบรรทัด และการ์ดสถิติ",
     Component: HeroHome as never,
     defaultContent: {
       heading: "ปรับเปลี่ยน\nองค์กรของคุณ\nสู่ความยั่งยืน",
@@ -60,8 +61,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   "hero-page": {
     type: "hero-page",
-    label: "Page Hero",
-    description: "Generic page hero with optional badge / icon / subtitle.",
+    label: "แบนเนอร์หน้าทั่วไป",
+    description: "แบนเนอร์หัวเรื่องของหน้า รองรับป้าย / ไอคอน / หัวข้อรอง",
     Component: HeroPage as never,
     defaultContent: {
       badge: "",
@@ -74,8 +75,9 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   "hero-page-stats": {
     type: "hero-page-stats",
-    label: "Page Hero (with stats)",
-    description: "Dark-purple hero with optional badge, description, and stats grid.",
+    label: "แบนเนอร์หน้า (พร้อมสถิติ)",
+    description:
+      "แบนเนอร์พื้นเขียวเข้ม พร้อมป้าย คำอธิบาย และตารางสถิติ (เหมาะสำหรับหน้าเกี่ยวกับเรา)",
     Component: HeroPageStats as never,
     defaultContent: {
       badge: "เกี่ยวกับเรา",
@@ -91,8 +93,9 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   "flower-about": {
     type: "flower-about",
-    label: "About (with flower SVG)",
-    description: "Animated flower SVG + heading + paragraphs + 3 features (used on home).",
+    label: "เกี่ยวกับเรา (พร้อมดอกไม้แอนิเมชัน)",
+    description:
+      "SVG ดอกไม้เคลื่อนไหว + หัวข้อ + ย่อหน้า + จุดเด่น 3 ข้อ (ใช้ในหน้าหลัก)",
     Component: FlowerAbout as never,
     defaultContent: {
       heading: "พันธมิตรของคุณ\nเพื่อความยั่งยืน",
@@ -109,8 +112,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   "text-block": {
     type: "text-block",
-    label: "Text Block",
-    description: "Heading + paragraphs in a soft card.",
+    label: "บล็อกข้อความ",
+    description: "หัวข้อ + ย่อหน้า ในการ์ดพื้นอ่อน",
     Component: TextBlock as never,
     defaultContent: {
       heading: "หัวข้อ",
@@ -120,8 +123,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   "reference-block": {
     type: "reference-block",
-    label: "Reference Block",
-    description: "Small reference text card.",
+    label: "บล็อกอ้างอิง",
+    description: "การ์ดข้อความอ้างอิงขนาดเล็ก",
     Component: ReferenceBlock as never,
     defaultContent: {
       heading: "อ้างอิง",
@@ -131,8 +134,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   "feature-grid": {
     type: "feature-grid",
-    label: "Feature Grid",
-    description: "Heading + description + grid of icon cards.",
+    label: "ตารางคุณสมบัติ",
+    description: "หัวข้อ + คำอธิบาย + ตารางการ์ดไอคอน (ใช้แสดงประโยชน์/จุดเด่น)",
     Component: FeatureGrid as never,
     defaultContent: {
       heading: "ประโยชน์",
@@ -147,8 +150,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   "stats-grid": {
     type: "stats-grid",
-    label: "Stats Grid",
-    description: "4 large stat cards with icons.",
+    label: "ตารางสถิติ",
+    description: "การ์ดสถิติขนาดใหญ่ 4 ใบ พร้อมไอคอน",
     Component: StatsGrid as never,
     defaultContent: {
       items: [
@@ -162,8 +165,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   "industries-grid": {
     type: "industries-grid",
-    label: "Industries Grid",
-    description: "Heading + grid of industry tags.",
+    label: "ตารางอุตสาหกรรม",
+    description: "หัวข้อ + ตารางป้ายชื่ออุตสาหกรรม",
     Component: IndustriesGrid as never,
     defaultContent: {
       heading: "อุตสาหกรรมที่เราให้บริการ",
@@ -173,8 +176,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   "tags-grid": {
     type: "tags-grid",
-    label: "Tags Grid",
-    description: "Heading + grid of small tagged items with checkmarks.",
+    label: "ตารางป้าย",
+    description: "หัวข้อ + ตารางป้ายขนาดเล็ก พร้อมเครื่องหมายถูก (เช่น ใบรับรอง / ประเทศ)",
     Component: TagsGrid as never,
     defaultContent: {
       heading: "หัวข้อ",
@@ -185,8 +188,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   "topics-list": {
     type: "topics-list",
-    label: "Topics List",
-    description: "Heading + 2-column list of topics with checkmarks.",
+    label: "รายการหัวข้อ",
+    description: "หัวข้อ + รายการแบบ 2 คอลัมน์ พร้อมเครื่องหมายถูก",
     Component: TopicsList as never,
     defaultContent: {
       heading: "หัวข้อที่ครอบคลุม",
@@ -197,8 +200,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   "format-cards": {
     type: "format-cards",
-    label: "Format Cards",
-    description: "3 cards with emoji + title + description.",
+    label: "การ์ดรูปแบบ",
+    description: "การ์ด 3 ใบ พร้อมอีโมจิ หัวข้อ และคำอธิบาย",
     Component: FormatCards as never,
     defaultContent: {
       heading: "รูปแบบการอบรม",
@@ -212,8 +215,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   "process-steps": {
     type: "process-steps",
-    label: "Process Steps",
-    description: "Numbered process steps with vertical connector.",
+    label: "ขั้นตอนการทำงาน",
+    description: "ขั้นตอนเรียงเลข พร้อมเส้นเชื่อมแนวตั้ง",
     Component: ProcessSteps as never,
     defaultContent: {
       heading: "ขั้นตอนการทำงาน",
@@ -228,8 +231,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   "lifecycle-stages": {
     type: "lifecycle-stages",
-    label: "Lifecycle Stages",
-    description: "Vertical list of emoji-marked stages.",
+    label: "วงจรชีวิต",
+    description: "รายการแนวตั้งของขั้นตอน พร้อมอีโมจิแต่ละขั้น",
     Component: LifecycleStages as never,
     defaultContent: {
       heading: "วงจรชีวิตผลิตภัณฑ์",
@@ -246,8 +249,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   "services-grid": {
     type: "services-grid",
-    label: "Services Grid (with bullets)",
-    description: "3-col service overview with icon, title, subtitle, bullet list.",
+    label: "ตารางบริการ (มีรายการย่อย)",
+    description: "ภาพรวมบริการ 3 คอลัมน์ พร้อมไอคอน หัวข้อ หัวข้อรอง และรายการจุดเด่น",
     Component: ServicesGrid as never,
     defaultContent: {
       items: [
@@ -265,8 +268,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   "additional-services": {
     type: "additional-services",
-    label: "Additional Services",
-    description: "Heading + 3-col grid of simple service items.",
+    label: "บริการเพิ่มเติม",
+    description: "หัวข้อ + ตาราง 3 คอลัมน์ของบริการอย่างง่าย",
     Component: AdditionalServices as never,
     defaultContent: {
       heading: "บริการเพิ่มเติม",
@@ -281,8 +284,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   "case-studies": {
     type: "case-studies",
-    label: "Case Studies",
-    description: "List of case studies (challenge / solution / results).",
+    label: "ผลงานลูกค้า",
+    description: "รายการผลงาน (ความท้าทาย / แนวทางแก้ไข / ผลลัพธ์)",
     Component: CaseStudies as never,
     defaultContent: {
       heading: "ผลงานของเรา",
@@ -302,8 +305,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   "contact-info": {
     type: "contact-info",
-    label: "Contact Info + Map",
-    description: "Address / phone / email / hours card next to a Google map.",
+    label: "ข้อมูลติดต่อ + แผนที่",
+    description: "การ์ดที่อยู่ / โทรศัพท์ / อีเมล / เวลาทำการ พร้อมแผนที่ Google",
     Component: ContactInfo as never,
     defaultContent: {
       address: "ที่อยู่ของเรา\nบรรทัดที่ 2\nบรรทัดที่ 3",
@@ -316,8 +319,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   "training-showcase": {
     type: "training-showcase",
-    label: "Training Showcase",
-    description: "Featured training section with course list + alternating image/text panels.",
+    label: "หน้าแนะนำหลักสูตร",
+    description: "ส่วนแนะนำหลักสูตรอบรม + รายการคอร์ส + แผงรูป-ข้อความสลับ",
     Component: TrainingShowcase as never,
     defaultContent: {
       title: "หลักสูตรอบรม",
@@ -332,8 +335,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   cta: {
     type: "cta",
-    label: "CTA Banner",
-    description: "Gradient call-to-action with primary + optional secondary button.",
+    label: "แบนเนอร์ชวนลงมือ",
+    description: "แบนเนอร์ชวนลงมือพื้นไล่สี พร้อมปุ่มหลัก + ปุ่มรอง (เลือกได้)",
     Component: Cta as never,
     defaultContent: {
       heading: "พร้อมที่จะเริ่มต้นแล้วหรือยัง?",
@@ -345,8 +348,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   "cta-simple": {
     type: "cta-simple",
-    label: "CTA (simple)",
-    description: "Simple soft-background heading + description block.",
+    label: "ชวนลงมือ (อย่างง่าย)",
+    description: "หัวข้อ + คำอธิบาย บนพื้นไล่สีอ่อน",
     Component: CtaSimple as never,
     defaultContent: {
       heading: "พร้อมเริ่มโครงการของคุณ?",
@@ -357,8 +360,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
   /* ---------------- Global sections (not pickable in page builder) ---------------- */
   footer: {
     type: "footer",
-    label: "Footer",
-    description: "Site footer (global).",
+    label: "ส่วนท้ายเว็บ",
+    description: "ส่วนท้ายของเว็บไซต์ (ใช้ทั้งเว็บ)",
     Component: FooterSection as never,
     defaultContent: {},
     global: true,
@@ -366,8 +369,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   header: {
     type: "header",
-    label: "Header",
-    description: "Site header / navigation (global).",
+    label: "ส่วนหัวเว็บ / เมนู",
+    description: "ส่วนหัวและเมนูนำทางของเว็บไซต์ (ใช้ทั้งเว็บ)",
     Component: HeaderSection as never,
     defaultContent: {},
     global: true,
@@ -375,8 +378,8 @@ export const sectionRegistry: Record<string, SectionDef> = {
 
   "site-status": {
     type: "site-status",
-    label: "Site Visibility",
-    description: "Toggles whether the public site is live or hidden.",
+    label: "สถานะการแสดงผลเว็บ",
+    description: "สลับเปิด/ปิดการแสดงผลเว็บไซต์ต่อสาธารณะ",
     Component: (() => null) as never,
     defaultContent: {
       live: true,

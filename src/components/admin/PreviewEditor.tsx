@@ -157,7 +157,22 @@ export default function PreviewEditor({ pageSlug }: { pageSlug: string }) {
           content: section.content,
         }),
       });
-      if (!res.ok) throw new Error(`Save failed (${res.status})`);
+      if (!res.ok) {
+        let detail = `Save failed (${res.status})`;
+        try {
+          const body = await res.json();
+          if (body && typeof body === "object") {
+            const err = (body as { error?: string }).error;
+            const det = (body as { details?: string }).details;
+            detail = `Save failed (${res.status}): ${err ?? ""}${
+              det ? ` — ${det}` : ""
+            }`;
+          }
+        } catch {
+          // ignore — keep generic detail
+        }
+        throw new Error(detail);
+      }
       setServerSections((prev) => {
         const idx = prev.findIndex((s) => s.id === id);
         const fresh = JSON.parse(JSON.stringify(section));
@@ -169,6 +184,7 @@ export default function PreviewEditor({ pageSlug }: { pageSlug: string }) {
       setSavedFlash(id);
       setTimeout(() => setSavedFlash((f) => (f === id ? null : f)), 1500);
     } catch (e) {
+      console.error("Save section failed", e);
       alert(e instanceof Error ? e.message : "Save failed");
     } finally {
       setSavingId(null);

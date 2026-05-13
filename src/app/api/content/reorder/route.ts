@@ -23,6 +23,21 @@ export async function PUT(request: Request) {
       );
     }
 
+    // Ensure the display_order column exists before issuing updates;
+    // gives a clearer error than a per-row failure if the migration
+    // hasn't been applied.
+    try {
+      await sql`SELECT display_order FROM content LIMIT 1`;
+    } catch {
+      return NextResponse.json(
+        {
+          error:
+            "display_order column is missing. Run scripts/migrate-page-builder.mjs first.",
+        },
+        { status: 500 }
+      );
+    }
+
     for (const item of order) {
       await sql`
         UPDATE content

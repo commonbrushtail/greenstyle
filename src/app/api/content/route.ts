@@ -60,30 +60,34 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  let body: {
+    page_slug: string;
+    section_key: string;
+    content: Record<string, unknown>;
+    section_type?: string;
+    display_order?: number;
+  };
   try {
-    const sql = getDb();
-    const body = await request.json();
-    const {
-      page_slug,
-      section_key,
-      content,
-      section_type,
-      display_order,
-    } = body as {
-      page_slug: string;
-      section_key: string;
-      content: Record<string, unknown>;
-      section_type?: string;
-      display_order?: number;
-    };
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+  }
 
-    if (!page_slug || !section_key) {
-      return NextResponse.json(
-        { error: "page_slug and section_key are required" },
-        { status: 400 }
-      );
-    }
+  const { page_slug, section_key, content, section_type, display_order } = body;
+  if (!page_slug || !section_key) {
+    return NextResponse.json(
+      { error: "page_slug and section_key are required" },
+      { status: 400 }
+    );
+  }
 
+  const sql = getDb();
+  const json = JSON.stringify(content ?? {});
+
+  // Try the new schema (with section_type + display_order). On error
+  // (most likely the columns don't exist yet), fall back to the legacy
+  // INSERT that only knows about content.
+  try {
     const rows = await sql`
       INSERT INTO content (page_slug, section_key, section_type, display_order, content)
       VALUES (
@@ -91,23 +95,41 @@ export async function POST(request: Request) {
         ${section_key},
         ${section_type ?? ""},
         ${display_order ?? 0},
-        ${JSON.stringify(content ?? {})}
+        ${json}
       )
       ON CONFLICT (page_slug, section_key)
       DO UPDATE SET
         content = EXCLUDED.content,
-        section_type = COALESCE(NULLIF(EXCLUDED.section_type, ''), content.section_type),
+        section_type = CASE
+          WHEN EXCLUDED.section_type = '' THEN content.section_type
+          ELSE EXCLUDED.section_type
+        END,
         display_order = EXCLUDED.display_order
       RETURNING *
     `;
-
     revalidatePath("/", "layout");
     return NextResponse.json(rows[0]);
-  } catch (e) {
-    return NextResponse.json(
-      { error: "Server error", details: String(e) },
-      { status: 500 }
-    );
+  } catch (newSchemaErr) {
+    try {
+      const rows = await sql`
+        INSERT INTO content (page_slug, section_key, content)
+        VALUES (${page_slug}, ${section_key}, ${json})
+        ON CONFLICT (page_slug, section_key)
+        DO UPDATE SET content = EXCLUDED.content
+        RETURNING *
+      `;
+      revalidatePath("/", "layout");
+      return NextResponse.json(rows[0]);
+    } catch (legacyErr) {
+      return NextResponse.json(
+        {
+          error: "Server error",
+          details: String(legacyErr),
+          newSchemaDetails: String(newSchemaErr),
+        },
+        { status: 500 }
+      );
+    }
   }
 }
 

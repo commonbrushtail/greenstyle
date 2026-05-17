@@ -48,11 +48,39 @@ export const sectionKeyMapping: Record<string, { key: string; type: string }[]> 
     { key: "formats", type: "format-cards" },
     { key: "cta", type: "cta" },
   ],
-  "case-studies": [
+  "services-4": [
     { key: "hero", type: "hero-page" },
-    { key: "stats", type: "stats-grid" },
-    { key: "studies", type: "case-studies" },
-    { key: "industries", type: "industries-grid" },
+    { key: "about", type: "text-block" },
+    { key: "features", type: "feature-grid" },
+    { key: "cta", type: "cta" },
+  ],
+  "services-5": [
+    { key: "hero", type: "hero-page" },
+    { key: "about", type: "text-block" },
+    { key: "features", type: "feature-grid" },
+    { key: "cta", type: "cta" },
+  ],
+  "services-6": [
+    { key: "hero", type: "hero-page" },
+    { key: "about", type: "text-block" },
+    { key: "features", type: "feature-grid" },
+    { key: "cta", type: "cta" },
+  ],
+  "services-7": [
+    { key: "hero", type: "hero-page" },
+    { key: "about", type: "text-block" },
+    { key: "features", type: "feature-grid" },
+    { key: "cta", type: "cta" },
+  ],
+  "services-8": [
+    { key: "hero", type: "hero-page" },
+    { key: "about", type: "text-block" },
+    { key: "features", type: "feature-grid" },
+    { key: "cta", type: "cta" },
+  ],
+  news: [
+    { key: "hero", type: "hero-page" },
+    { key: "intro", type: "text-block" },
     { key: "cta", type: "cta" },
   ],
   contact: [
@@ -63,6 +91,7 @@ export const sectionKeyMapping: Record<string, { key: string; type: string }[]> 
   global: [
     { key: "header", type: "header" },
     { key: "footer", type: "footer" },
+    { key: "page_labels", type: "page-labels" },
     { key: "site_status", type: "site-status" },
   ],
 };

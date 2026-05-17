@@ -7,6 +7,7 @@ import {
   ReferenceBlock,
   Cta,
   CtaSimple,
+  ImageBlock,
 } from "./core";
 import {
   FeatureGrid,
@@ -129,6 +130,22 @@ export const sectionRegistry: Record<string, SectionDef> = {
     defaultContent: {
       heading: "อ้างอิง",
       text: "ที่มา: ...",
+    },
+  },
+
+  "image-block": {
+    type: "image-block",
+    label: "บล็อกรูปภาพ",
+    description:
+      "แสดงรูปภาพขนาดใหญ่พร้อมคำบรรยายใต้ภาพ — เพิ่มเซคชั่นนี้เมื่อต้องการวางรูปในหน้า",
+    Component: ImageBlock as never,
+    defaultContent: {
+      image: "",
+      alt: "",
+      caption: "",
+      alignment: "center",
+      maxWidth: "900px",
+      rounded: true,
     },
   },
 
@@ -385,6 +402,33 @@ export const sectionRegistry: Record<string, SectionDef> = {
       live: true,
       heading: "เร็วๆ นี้",
       message: "เว็บไซต์ของเรากำลังจะเปิดใช้งาน\nกรุณากลับมาใหม่อีกครั้งเร็วๆ นี้",
+    },
+    global: true,
+  },
+
+  "page-labels": {
+    type: "page-labels",
+    label: "ชื่อหน้าในระบบจัดการ",
+    description:
+      "ชื่อที่แสดงในเมนูฝั่งซ้ายของ /admin (ไม่ใช่เมนูของผู้เยี่ยมชม). แก้ไขที่นี่เพื่อเปลี่ยนชื่อหน้าใน sidebar",
+    Component: (() => null) as never,
+    defaultContent: {
+      pages: [
+        { slug: "home", label: "หน้าหลัก" },
+        { slug: "about", label: "เกี่ยวกับเรา" },
+        { slug: "services", label: "บริการของเรา" },
+        { slug: "services-cfo", label: "บริการ - CFO" },
+        { slug: "services-cfp", label: "บริการ - CFP" },
+        { slug: "services-training", label: "บริการ - อบรม" },
+        { slug: "services-4", label: "บริการที่ 4" },
+        { slug: "services-5", label: "บริการที่ 5" },
+        { slug: "services-6", label: "บริการที่ 6" },
+        { slug: "services-7", label: "บริการที่ 7" },
+        { slug: "services-8", label: "บริการที่ 8" },
+        { slug: "news", label: "ข่าวสาร" },
+        { slug: "contact", label: "ติดต่อเรา" },
+        { slug: "global", label: "ส่วนกลาง" },
+      ],
     },
     global: true,
   },

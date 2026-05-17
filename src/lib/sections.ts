@@ -175,3 +175,16 @@ export interface HeaderContent {
     dropdown?: { name: string; href: string }[];
   }[];
 }
+
+export interface PageLabelsContent {
+  pages: { slug: string; label: string }[];
+}
+
+export interface ImageBlockContent {
+  image: string;
+  alt: string;
+  caption?: string;
+  alignment?: "left" | "center" | "right";
+  maxWidth?: string; // e.g. "800px", "100%"
+  rounded?: boolean;
+}

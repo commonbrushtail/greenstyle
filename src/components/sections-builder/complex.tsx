@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useEffect, useState } from "react";
+import CmsImage from "@/components/ui/CmsImage";
 import { ArrowRight, CheckCircle2, GraduationCap, Mail, Phone, MapPin, Clock } from "lucide-react";
 import AnimatedFlowerSVG from "@/components/ui/AnimatedFlowerSVG";
 import Threads from "@/components/Threads";
 import { getIcon } from "@/lib/icon-map";
+import MaybeImage, { isImageValue } from "./MaybeImage";
 import type {
   FlowerAboutContent,
   ProcessStepsContent,
@@ -38,23 +39,31 @@ export function FlowerAbout({ content: c }: { content: FlowerAboutContent }) {
 
           <div className="space-y-8">
             <h2 className="heading-xl text-gray-900">
-              {headingLines.map((line, i) => {
-                const isLast = i === headingLines.length - 1;
-                return (
-                  <span key={i}>
-                    {isLast ? <span className="text-primary-600">{line}</span> : line}
-                    {i < headingLines.length - 1 && <br />}
-                  </span>
-                );
-              })}
+              {isImageValue(c.heading) ? (
+                <MaybeImage value={c.heading} />
+              ) : (
+                headingLines.map((line, i) => {
+                  const isLast = i === headingLines.length - 1;
+                  return (
+                    <span key={i}>
+                      {isLast ? <span className="text-primary-600">{line}</span> : line}
+                      {i < headingLines.length - 1 && <br />}
+                    </span>
+                  );
+                })
+              )}
             </h2>
 
             <div className="space-y-4">
               {c.description && (
-                <p className="text-lg text-gray-700 leading-relaxed">{c.description}</p>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  <MaybeImage value={c.description} />
+                </p>
               )}
               {c.description2 && (
-                <p className="text-lg text-gray-700 leading-relaxed">{c.description2}</p>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  <MaybeImage value={c.description2} />
+                </p>
               )}
             </div>
 
@@ -62,13 +71,19 @@ export function FlowerAbout({ content: c }: { content: FlowerAboutContent }) {
               {(c.features ?? []).map((feature, i) => (
                 <div key={i} className="flex items-start gap-4 group">
                   <div className="flex-shrink-0 w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center group-hover:bg-primary-200 transition-colors text-2xl">
-                    {feature.icon}
+                    {isImageValue(feature.icon) ? (
+                      <MaybeImage value={feature.icon} imgClassName="w-8 h-8 object-contain" />
+                    ) : (
+                      feature.icon
+                    )}
                   </div>
                   <div>
                     <h3 className="font-display font-semibold text-gray-900 text-xl mb-1">
-                      {feature.title}
+                      <MaybeImage value={feature.title} />
                     </h3>
-                    <p className="text-gray-600">{feature.description}</p>
+                    <p className="text-gray-600">
+                      <MaybeImage value={feature.description} />
+                    </p>
                   </div>
                 </div>
               ))}
@@ -86,9 +101,13 @@ export function ProcessSteps({ content: c }: { content: ProcessStepsContent }) {
     <section className="section-padding bg-white">
       <div className="container-custom">
         <div className="text-center mb-12">
-          <h2 className="heading-lg mb-4">{c.heading}</h2>
+          <h2 className="heading-lg mb-4">
+            <MaybeImage value={c.heading} />
+          </h2>
           {c.description && (
-            <p className="text-lg text-gray-700 max-w-2xl mx-auto">{c.description}</p>
+            <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+              <MaybeImage value={c.description} />
+            </p>
           )}
         </div>
         <div className="max-w-4xl mx-auto">
@@ -100,11 +119,15 @@ export function ProcessSteps({ content: c }: { content: ProcessStepsContent }) {
               >
                 <div className="flex items-start gap-6">
                   <div className="flex-shrink-0 w-16 h-16 bg-primary-600 text-white rounded-xl flex items-center justify-center font-bold text-xl group-hover:scale-110 transition-transform">
-                    {step.number}
+                    <MaybeImage value={step.number} imgClassName="w-10 h-10 object-contain" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{step.title}</h3>
-                    <p className="text-gray-700">{step.description}</p>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      <MaybeImage value={step.title} />
+                    </h3>
+                    <p className="text-gray-700">
+                      <MaybeImage value={step.description} />
+                    </p>
                   </div>
                 </div>
                 {i < arr.length - 1 && (
@@ -125,9 +148,13 @@ export function LifecycleStages({ content: c }: { content: LifecycleStagesConten
     <section className="section-padding bg-gradient-to-br from-gray-50 to-white">
       <div className="container-custom">
         <div className="text-center mb-12">
-          <h2 className="heading-lg mb-4">{c.heading}</h2>
+          <h2 className="heading-lg mb-4">
+            <MaybeImage value={c.heading} />
+          </h2>
           {c.description && (
-            <p className="text-lg text-gray-700 max-w-2xl mx-auto">{c.description}</p>
+            <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+              <MaybeImage value={c.description} />
+            </p>
           )}
         </div>
         <div className="max-w-4xl mx-auto">
@@ -136,10 +163,16 @@ export function LifecycleStages({ content: c }: { content: LifecycleStagesConten
               <div key={i} className="relative">
                 <div className="flex items-center gap-6 mb-6">
                   <div className="flex-shrink-0 w-20 h-20 bg-primary-100 rounded-2xl flex items-center justify-center text-4xl hover:scale-110 transition-transform">
-                    {item.icon}
+                    {isImageValue(item.icon) ? (
+                      <MaybeImage value={item.icon} imgClassName="w-12 h-12 object-contain" />
+                    ) : (
+                      item.icon
+                    )}
                   </div>
                   <div className="flex-1 bg-white rounded-xl p-6 shadow-md border border-primary-100">
-                    <h3 className="text-lg font-bold text-gray-900">{item.stage}</h3>
+                    <h3 className="text-lg font-bold text-gray-900">
+                      <MaybeImage value={item.stage} />
+                    </h3>
                   </div>
                 </div>
                 {i < arr.length - 1 && (
@@ -171,17 +204,23 @@ export function ServicesGrid({ content: c }: { content: ServicesGridContent }) {
                   <Icon className="w-8 h-8 text-primary-600" />
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-2 font-display">
-                  {service.title}
+                  <MaybeImage value={service.title} />
                 </h2>
-                <p className="text-sm text-primary-600 font-medium mb-4">{service.subtitle}</p>
-                <p className="text-gray-700 mb-6 leading-relaxed">{service.description}</p>
+                <p className="text-sm text-primary-600 font-medium mb-4">
+                  <MaybeImage value={service.subtitle} />
+                </p>
+                <p className="text-gray-700 mb-6 leading-relaxed">
+                  <MaybeImage value={service.description} />
+                </p>
                 <ul className="space-y-3 mb-8">
                   {(service.features ?? []).map((f, idx) => (
                     <li key={idx} className="flex items-start">
                       <span className="flex-shrink-0 w-5 h-5 rounded-full bg-primary-100 flex items-center justify-center mt-0.5 mr-3">
                         <span className="w-2 h-2 rounded-full bg-primary-600" />
                       </span>
-                      <span className="text-sm text-gray-700">{f}</span>
+                      <span className="text-sm text-gray-700">
+                        <MaybeImage value={f} />
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -209,8 +248,12 @@ export function AdditionalServices({ content: c }: { content: AdditionalServices
     <section className="section-padding bg-gradient-to-br from-primary-50 to-white">
       <div className="container-custom">
         <div className="max-w-3xl mx-auto text-center mb-12">
-          <h2 className="heading-lg mb-4">{c.heading}</h2>
-          <p className="text-lg text-gray-700">{c.description}</p>
+          <h2 className="heading-lg mb-4">
+            <MaybeImage value={c.heading} />
+          </h2>
+          <p className="text-lg text-gray-700">
+            <MaybeImage value={c.description} />
+          </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {(c.items ?? []).map((item, i) => (
@@ -218,8 +261,12 @@ export function AdditionalServices({ content: c }: { content: AdditionalServices
               key={i}
               className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-primary-100"
             >
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
-              <p className="text-gray-700">{item.description}</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <MaybeImage value={item.title} />
+              </h3>
+              <p className="text-gray-700">
+                <MaybeImage value={item.description} />
+              </p>
             </div>
           ))}
         </div>
@@ -234,9 +281,13 @@ export function CaseStudies({ content: c }: { content: CaseStudiesContent }) {
     <section className="section-padding bg-gradient-to-br from-gray-50 to-white">
       <div className="container-custom">
         <div className="text-center mb-12">
-          <h2 className="heading-lg mb-4">{c.heading}</h2>
+          <h2 className="heading-lg mb-4">
+            <MaybeImage value={c.heading} />
+          </h2>
           {c.description && (
-            <p className="text-lg text-gray-700 max-w-2xl mx-auto">{c.description}</p>
+            <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+              <MaybeImage value={c.description} />
+            </p>
           )}
         </div>
         <div className="max-w-5xl mx-auto space-y-8">
@@ -249,28 +300,34 @@ export function CaseStudies({ content: c }: { content: CaseStudiesContent }) {
                 <div className="flex flex-col md:flex-row md:items-start gap-6">
                   <div className="flex-shrink-0">
                     <div className="inline-block px-4 py-1 bg-primary-600 text-white text-sm font-medium rounded-full">
-                      {study.service}
+                      <MaybeImage value={study.service} />
                     </div>
                   </div>
                   <div className="flex-1">
                     <h3 className="text-2xl font-bold text-gray-900 mb-2 font-display">
-                      {study.title}
+                      <MaybeImage value={study.title} />
                     </h3>
-                    <p className="text-sm text-gray-600 mb-6">{study.category}</p>
+                    <p className="text-sm text-gray-600 mb-6">
+                      <MaybeImage value={study.category} />
+                    </p>
                     <div className="space-y-4">
                       <div>
                         <h4 className="font-semibold text-gray-900 mb-2 flex items-center">
                           <span className="w-2 h-2 bg-red-500 rounded-full mr-2" />
                           ความท้าทาย
                         </h4>
-                        <p className="text-gray-700 pl-4">{study.challenge}</p>
+                        <p className="text-gray-700 pl-4">
+                          <MaybeImage value={study.challenge} />
+                        </p>
                       </div>
                       <div>
                         <h4 className="font-semibold text-gray-900 mb-2 flex items-center">
                           <span className="w-2 h-2 bg-blue-500 rounded-full mr-2" />
                           แนวทางแก้ไข
                         </h4>
-                        <p className="text-gray-700 pl-4">{study.solution}</p>
+                        <p className="text-gray-700 pl-4">
+                          <MaybeImage value={study.solution} />
+                        </p>
                       </div>
                       <div>
                         <h4 className="font-semibold text-gray-900 mb-2 flex items-center">
@@ -281,7 +338,7 @@ export function CaseStudies({ content: c }: { content: CaseStudiesContent }) {
                           {(study.results ?? []).map((r, idx) => (
                             <li key={idx} className="flex items-start text-gray-700">
                               <span className="text-primary-600 mr-2">✓</span>
-                              {r}
+                              <MaybeImage value={r} />
                             </li>
                           ))}
                         </ul>
@@ -313,7 +370,7 @@ export function ContactInfo({ content: c }: { content: ContactInfoContent }) {
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">ที่อยู่</h3>
                   <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-line">
-                    {c.address}
+                    <MaybeImage value={c.address} />
                   </p>
                 </div>
               </div>
@@ -328,7 +385,7 @@ export function ContactInfo({ content: c }: { content: ContactInfoContent }) {
                     href={`tel:${(c.phone ?? "").replace(/-/g, "")}`}
                     className="text-gray-700 hover:text-primary-600 transition-colors"
                   >
-                    {c.phone}
+                    <MaybeImage value={c.phone} />
                   </a>
                 </div>
               </div>
@@ -343,7 +400,7 @@ export function ContactInfo({ content: c }: { content: ContactInfoContent }) {
                     href={`mailto:${c.email}`}
                     className="text-gray-700 hover:text-primary-600 transition-colors"
                   >
-                    {c.email}
+                    <MaybeImage value={c.email} />
                   </a>
                 </div>
               </div>
@@ -354,7 +411,9 @@ export function ContactInfo({ content: c }: { content: ContactInfoContent }) {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">เวลาทำการ</h3>
-                  <p className="text-gray-700">{c.hours}</p>
+                  <p className="text-gray-700">
+                    <MaybeImage value={c.hours} />
+                  </p>
                 </div>
               </div>
             </div>
@@ -397,17 +456,23 @@ export function TrainingShowcase({ content: c }: { content: TrainingShowcaseCont
         <div className="container-custom relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="heading-xl text-gray-900 mb-3">
-              {c.title}
+              <MaybeImage value={c.title} />
               <br />
-              <span className="text-primary-600">{c.subtitle}</span>
+              <span className="text-primary-600">
+                <MaybeImage value={c.subtitle} />
+              </span>
             </h2>
-            <p className="text-gray-700 text-lg leading-relaxed mb-10">{c.description}</p>
+            <p className="text-gray-700 text-lg leading-relaxed mb-10">
+              <MaybeImage value={c.description} />
+            </p>
 
             <div className="mb-10 bg-opacity-10 space-y-3 bg-white/80 backdrop-blur-lg p-8 rounded-xl shadow-lg max-w-3xl mx-auto border border-primary-100">
               {(c.courses ?? []).map((course, i) => (
                 <div key={i} className="flex items-start text-left">
                   <CheckCircle2 className="w-6 h-6 text-primary-600 mr-3 mt-0.5 flex-shrink-0" />
-                  <span className="text-gray-800 font-medium">{course}</span>
+                  <span className="text-gray-800 font-medium">
+                    <MaybeImage value={course} />
+                  </span>
                 </div>
               ))}
             </div>
@@ -417,7 +482,7 @@ export function TrainingShowcase({ content: c }: { content: TrainingShowcaseCont
                 href={c.href}
                 className="inline-flex items-center px-6 py-3 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition-all shadow-lg hover:shadow-xl group text-lg"
               >
-                {c.ctaText ?? "ดูหลักสูตรทั้งหมด"}
+                <MaybeImage value={c.ctaText ?? "ดูหลักสูตรทั้งหมด"} />
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>
             )}
@@ -442,14 +507,18 @@ export function TrainingShowcase({ content: c }: { content: TrainingShowcaseCont
                       {service.icon && <span className="text-9xl opacity-30">{service.icon}</span>}
                     </div>
                     {service.image && (
-                      <Image src={service.image} alt={service.title} fill className="object-cover" />
+                      <CmsImage src={service.image} alt={service.title} fill className="object-cover" />
                     )}
                   </div>
                 </div>
                 <div className="w-full lg:w-1/2 space-y-6">
                   <div>
-                    <h3 className="heading-md mb-4">{service.title}</h3>
-                    <p className="text-gray-700 text-lg leading-relaxed">{service.description}</p>
+                    <h3 className="heading-md mb-4">
+                      <MaybeImage value={service.title} />
+                    </h3>
+                    <p className="text-gray-700 text-lg leading-relaxed">
+                      <MaybeImage value={service.description} />
+                    </p>
                   </div>
                   {service.href && (
                     <Link

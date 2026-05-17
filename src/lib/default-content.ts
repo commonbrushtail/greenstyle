@@ -300,58 +300,56 @@ export const defaultContent: Record<string, Record<string, any>> = {
     },
   },
 
-  "case-studies": {
+  news: {
     hero: {
-      heading: "ผลงานของเรา",
-      description: "ตัวอย่างโครงการและความสำเร็จของเราในการช่วยเหลือองค์กรต่างๆ ให้บรรลุเป้าหมายด้านความยั่งยืนและสิ่งแวดล้อม",
+      heading: "ข่าวสารและบทความ",
+      description: "ติดตามข่าวสาร อัปเดต และบทความเกี่ยวกับสิ่งแวดล้อมและความยั่งยืน",
     },
-    stats: {
-      items: [
-        { number: "100+", label: "โครงการที่สำเร็จ" },
-        { number: "50+", label: "องค์กรที่ไว้วางใจ" },
-        { number: "10,000+", label: "ตัน CO2e ที่ช่วยลด" },
-        { number: "5,000+", label: "คนที่ผ่านการอบรม" },
+    intro: {
+      heading: "ข่าวสารล่าสุด",
+      paragraphs: [
+        "ยังไม่มีบทความในขณะนี้ กลับมาเยี่ยมชมเร็วๆ นี้",
       ],
-    },
-    studies: {
-      heading: "กรณีศึกษา",
-      description: "ตัวอย่างโครงการที่เราภูมิใจที่ได้เป็นส่วนหนึ่งในความสำเร็จ",
-      items: [
-        {
-          title: "โรงงานผลิตชิ้นส่วนอิเล็กทรอนิกส์",
-          category: "Manufacturing",
-          service: "CFO",
-          challenge: "ต้องการทราบปริมาณการปล่อยก๊าซเรือนกระจกเพื่อนำไปสู่การลด",
-          solution: "จัดทำคาร์บอนฟุตพริ้นท์องค์กรครอบคลุมทั้ง Scope 1, 2 และ 3 พร้อมวิเคราะห์แหล่งปล่อยหลัก",
-          results: ["ทราบปริมาณการปล่อย GHG 5,240 tCO2e/ปี", "ระบุจุดที่สามารถลดได้ถึง 15%", "ได้รับการรับรองจาก อบก."],
-        },
-        {
-          title: "ผู้ผลิตเครื่องดื่มออร์แกนิค",
-          category: "Food & Beverage",
-          service: "CFP",
-          challenge: "ต้องการแสดงคาร์บอนฟุตพริ้นท์บนบรรจุภัณฑ์เพื่อสร้างความแตกต่าง",
-          solution: "ประเมินคาร์บอนฟุตพริ้นท์ของผลิตภัณฑ์ตลอดวัฏจักรชีวิต ตั้งแต่วัตถุดิบจนถึงการกำจัด",
-          results: ["CFP = 0.35 kgCO2e/ขวด", "พบว่าบรรจุภัณฑ์มีส่วนมากที่สุด (45%)", "นำไปสู่การเปลี่ยนบรรจุภัณฑ์ลด 20%"],
-        },
-        {
-          title: "สำนักงานบริษัทเอกชน",
-          category: "Office",
-          service: "Training",
-          challenge: "พนักงานขาดความรู้และความเข้าใจเรื่องการอนุรักษ์สิ่งแวดล้อม",
-          solution: "จัดอบรมหลักสูตร Green Office และภาวะโลกร้อมแบบเชิงปฏิบัติการ",
-          results: ["พนักงาน 120 คนเข้าร่วมอบรม", "ลดการใช้ไฟฟ้าลง 12% ใน 6 เดือน", "พนักงานมีส่วนร่วมคัดแยกขยะ 85%"],
-        },
-      ],
-    },
-    industries: {
-      heading: "อุตสาหกรรมที่เราให้บริการ",
-      items: ["การผลิต", "อาหารและเครื่องดื่ม", "โรงแรมและการท่องเที่ยว", "ค้าปลีก", "อสังหาริมทรัพย์", "การเงินและธนาคาร", "เทคโนโลยี", "บริการและสำนักงาน"],
     },
     cta: {
-      heading: "พร้อมที่จะเป็นส่วนหนึ่งของความสำเร็จ?",
-      description: "มาร่วมกันสร้างผลงานที่ยั่งยืนให้กับองค์กรของคุณ",
+      heading: "ติดตามเราได้ในช่องทางอื่น",
+      description: "ติดตามข่าวสารและกิจกรรมของเราได้ที่ Facebook",
+      primaryCta: { text: "ติดต่อเรา", href: "/contact" },
     },
   },
+
+  ...Object.fromEntries(
+    ["4", "5", "6", "7", "8"].map((n) => [
+      `services-${n}`,
+      {
+        hero: {
+          heading: `บริการที่ ${n}`,
+          description: "คำอธิบายบริการนี้ — ปรับเปลี่ยนได้ในระบบจัดการ",
+        },
+        about: {
+          heading: "เกี่ยวกับบริการนี้",
+          paragraphs: [
+            "ย่อหน้าแนะนำบริการ — ปรับเปลี่ยนได้ในระบบจัดการ",
+          ],
+        },
+        features: {
+          heading: "จุดเด่นของบริการ",
+          description: "คำอธิบายภาพรวมของจุดเด่น",
+          items: [
+            { iconName: "Award", title: "จุดเด่นที่ 1", description: "รายละเอียด" },
+            { iconName: "Target", title: "จุดเด่นที่ 2", description: "รายละเอียด" },
+            { iconName: "Lightbulb", title: "จุดเด่นที่ 3", description: "รายละเอียด" },
+          ],
+        },
+        cta: {
+          heading: "สนใจบริการนี้?",
+          description: "ติดต่อทีมงานเพื่อปรึกษาฟรี",
+          primaryCta: { text: "ติดต่อเรา", href: "/contact" },
+          secondaryCta: { text: "ดูบริการอื่น", href: "/services" },
+        },
+      },
+    ])
+  ),
 
   contact: {
     hero: {
@@ -384,7 +382,7 @@ export const defaultContent: Record<string, Record<string, any>> = {
       ],
       quickLinks: [
         { text: "เกี่ยวกับเรา", href: "/about" },
-        { text: "ผลงาน", href: "/case-studies" },
+        { text: "ข่าวสาร", href: "/news" },
         { text: "ติดต่อเรา", href: "/contact" },
       ],
       address: "60 หมู่บ้านกลางเมืองรามอินทรา-วัชรพล\nคลองถนน, สายไหม\nกรุงเทพมหานคร 10220",
@@ -397,6 +395,24 @@ export const defaultContent: Record<string, Record<string, any>> = {
       heading: "เร็วๆ นี้",
       message:
         "เว็บไซต์ของเรากำลังจะเปิดใช้งาน\nกรุณากลับมาใหม่อีกครั้งเร็วๆ นี้",
+    },
+    page_labels: {
+      pages: [
+        { slug: "home", label: "หน้าหลัก" },
+        { slug: "about", label: "เกี่ยวกับเรา" },
+        { slug: "services", label: "บริการของเรา" },
+        { slug: "services-cfo", label: "บริการ - CFO" },
+        { slug: "services-cfp", label: "บริการ - CFP" },
+        { slug: "services-training", label: "บริการ - อบรม" },
+        { slug: "services-4", label: "บริการที่ 4" },
+        { slug: "services-5", label: "บริการที่ 5" },
+        { slug: "services-6", label: "บริการที่ 6" },
+        { slug: "services-7", label: "บริการที่ 7" },
+        { slug: "services-8", label: "บริการที่ 8" },
+        { slug: "news", label: "ข่าวสาร" },
+        { slug: "contact", label: "ติดต่อเรา" },
+        { slug: "global", label: "ส่วนกลาง" },
+      ],
     },
   },
 };

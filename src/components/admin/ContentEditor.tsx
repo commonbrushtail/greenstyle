@@ -1,6 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ImageField from "./ImageField";
+import TextWithImageUpload from "./TextWithImageUpload";
+
+/** Heuristic for whether a field name represents an image URL. */
+function isImageFieldName(key: string): boolean {
+  if (/^icon(Name)?$/.test(key)) return false;
+  if (/mapEmbed|embedUrl/i.test(key)) return false;
+  if (/(image|img|logo|photo|thumbnail|avatar|cover|background)/i.test(key)) return true;
+  if (/Src$/.test(key)) return true;
+  return false;
+}
 
 interface ContentEditorProps {
   content: Record<string, unknown>;
@@ -123,27 +134,28 @@ function renderFields(
     const label = key.replace(/_/g, " ").replace(/([A-Z])/g, " $1");
 
     if (typeof value === "string") {
+      if (isImageFieldName(key)) {
+        return (
+          <ImageField
+            key={key}
+            value={value}
+            label={label}
+            onChange={(v) => updateValue(currentPath, v)}
+          />
+        );
+      }
+
       const isLong = value.length > 80 || value.includes("\n");
       return (
         <div key={key}>
           <label className="block text-sm font-medium text-gray-700 mb-1 capitalize">
             {label}
           </label>
-          {isLong ? (
-            <textarea
-              value={value}
-              onChange={(e) => updateValue(currentPath, e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none text-sm"
-              rows={4}
-            />
-          ) : (
-            <input
-              type="text"
-              value={value}
-              onChange={(e) => updateValue(currentPath, e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none text-sm"
-            />
-          )}
+          <TextWithImageUpload
+            value={value}
+            multiline={isLong}
+            onChange={(v) => updateValue(currentPath, v)}
+          />
         </div>
       );
     }

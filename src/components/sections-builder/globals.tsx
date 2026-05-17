@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useState } from "react";
+import CmsImage from "@/components/ui/CmsImage";
 import { FiFacebook, FiMail, FiPhone, FiMapPin, FiMenu, FiX } from "react-icons/fi";
 import { useGlobalSection } from "@/components/admin/GlobalPreviewProvider";
 import type { FooterContent, HeaderContent } from "@/lib/sections";
@@ -38,15 +38,20 @@ const headerDefault: HeaderContent = {
     { name: "หน้าหลัก", href: "/" },
     { name: "เกี่ยวกับเรา", href: "/about" },
     {
-      name: "บริการ",
+      name: "บริการของเรา",
       href: "/services",
       dropdown: [
         { name: "หลักสูตรอบรม", href: "/services/training" },
         { name: "คาร์บอนฟุตพริ้นท์องค์กร (CFO)", href: "/services/cfo" },
         { name: "คาร์บอนฟุตพริ้นท์ผลิตภัณฑ์ (CFP)", href: "/services/cfp" },
+        { name: "บริการที่ 4", href: "/services/4" },
+        { name: "บริการที่ 5", href: "/services/5" },
+        { name: "บริการที่ 6", href: "/services/6" },
+        { name: "บริการที่ 7", href: "/services/7" },
+        { name: "บริการที่ 8", href: "/services/8" },
       ],
     },
-    { name: "ผลงาน", href: "/case-studies" },
+    { name: "ข่าวสาร", href: "/news" },
     { name: "ติดต่อเรา", href: "/contact" },
   ],
 };
@@ -64,7 +69,7 @@ export function FooterSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center space-x-3 mb-4">
-              <Image src="/images/logo.png" alt="Green Style" width={60} height={60} className="object-contain" />
+              <CmsImage src="/images/logo.png" alt="Green Style" width={60} height={60} className="object-contain" />
             </div>
             <div className="text-sm mb-4">
               <div>{c.companyName}</div>
@@ -148,7 +153,7 @@ export function HeaderSection() {
       <nav className="container-custom">
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center space-x-3">
-            <Image src={c.logoSrc} alt={c.logoAlt} width={55} height={55} className="object-contain" priority />
+            <CmsImage src={c.logoSrc} alt={c.logoAlt} width={55} height={55} className="object-contain" priority />
           </Link>
 
           <div className="hidden lg:flex items-center space-x-8 ml-auto">

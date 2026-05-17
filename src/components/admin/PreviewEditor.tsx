@@ -22,7 +22,12 @@ const slugToPath: Record<string, string> = {
   "services-cfo": "/services/cfo",
   "services-cfp": "/services/cfp",
   "services-training": "/services/training",
-  "case-studies": "/case-studies",
+  "services-4": "/services/4",
+  "services-5": "/services/5",
+  "services-6": "/services/6",
+  "services-7": "/services/7",
+  "services-8": "/services/8",
+  news: "/news",
   contact: "/contact",
   global: "/",
 };
@@ -68,12 +73,14 @@ export default function PreviewEditor({ pageSlug }: { pageSlug: string }) {
     return `${base}?preview=1`;
   }, [pageSlug]);
 
-  // Load page rows.
+  // Load page rows. Sections in sectionKeyMapping but missing from the DB
+  // are injected with default content from the registry so the admin can
+  // edit + save them (saving creates the DB row).
   useEffect(() => {
     fetch(`/api/content?page=${pageSlug}`)
       .then((r) => r.json())
       .then((rows: ContentRow[]) => {
-        const list: SectionInstance[] = rows
+        const dbList: SectionInstance[] = (Array.isArray(rows) ? rows : [])
           .map((r, i) => {
             const type = r.section_type || inferType(pageSlug, r.section_key);
             if (!type) return null;
@@ -84,10 +91,29 @@ export default function PreviewEditor({ pageSlug }: { pageSlug: string }) {
               order: r.display_order ?? i,
             } as SectionInstance;
           })
-          .filter((x): x is SectionInstance => x !== null)
-          .sort((a, b) => a.order - b.order);
+          .filter((x): x is SectionInstance => x !== null);
+
+        const existingKeys = new Set(dbList.map((s) => s.id));
+        const expected = sectionKeyMapping[pageSlug] ?? [];
+        const missing: SectionInstance[] = expected
+          .map((m, idx) => {
+            if (existingKeys.has(m.key)) return null;
+            const def = sectionRegistry[m.type];
+            if (!def) return null;
+            return {
+              id: m.key,
+              type: m.type,
+              content: JSON.parse(JSON.stringify(def.defaultContent ?? {})),
+              order: idx,
+            } as SectionInstance;
+          })
+          .filter((x): x is SectionInstance => x !== null);
+
+        const list = [...dbList, ...missing].sort((a, b) => a.order - b.order);
         setSections(list);
-        setServerSections(JSON.parse(JSON.stringify(list)));
+        // serverSections only includes DB rows — missing ones show as dirty
+        // until saved, which is correct.
+        setServerSections(JSON.parse(JSON.stringify(dbList)));
         if (list.length > 0) setOpenId(list[0].id);
         setLoaded(true);
       })

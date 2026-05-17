@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { getDb } from "@/lib/db";
 import { getSession } from "@/lib/auth";
+import { ensureSchema } from "@/lib/ensure-schema";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -59,6 +60,8 @@ export async function POST(request: Request) {
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+
+  await ensureSchema();
 
   let body: {
     page_slug: string;

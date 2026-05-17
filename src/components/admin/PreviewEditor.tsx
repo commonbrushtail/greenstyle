@@ -292,9 +292,25 @@ export default function PreviewEditor({ pageSlug }: { pageSlug: string }) {
           })),
         }),
       });
-      if (!res.ok) throw new Error(`Reorder failed (${res.status})`);
+      if (!res.ok) {
+        let detail = `Reorder failed (${res.status})`;
+        try {
+          const body = await res.json();
+          if (body && typeof body === "object") {
+            const err = (body as { error?: string }).error;
+            const det = (body as { details?: string }).details;
+            detail = `Reorder failed (${res.status}): ${err ?? ""}${
+              det ? ` — ${det}` : ""
+            }`;
+          }
+        } catch {
+          // keep generic detail
+        }
+        throw new Error(detail);
+      }
       setServerSections(JSON.parse(JSON.stringify(sections)));
     } catch (e) {
+      console.error("Reorder failed", e);
       alert(e instanceof Error ? e.message : "Reorder failed");
     } finally {
       setReordering(false);

@@ -2,12 +2,15 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { getDb } from "@/lib/db";
 import { getSession } from "@/lib/auth";
+import { ensureSchema } from "@/lib/ensure-schema";
 
 export async function PUT(request: Request) {
   const session = await getSession();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+
+  await ensureSchema();
 
   try {
     const sql = getDb();
@@ -20,21 +23,6 @@ export async function PUT(request: Request) {
       return NextResponse.json(
         { error: "page_slug and order[] are required" },
         { status: 400 }
-      );
-    }
-
-    // Ensure the display_order column exists before issuing updates;
-    // gives a clearer error than a per-row failure if the migration
-    // hasn't been applied.
-    try {
-      await sql`SELECT display_order FROM content LIMIT 1`;
-    } catch {
-      return NextResponse.json(
-        {
-          error:
-            "display_order column is missing. Run scripts/migrate-page-builder.mjs first.",
-        },
-        { status: 500 }
       );
     }
 

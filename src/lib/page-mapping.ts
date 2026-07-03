@@ -66,12 +66,6 @@ export const sectionKeyMapping: Record<string, { key: string; type: string }[]> 
     { key: "features", type: "feature-grid" },
     { key: "cta", type: "cta" },
   ],
-  "services-7": [
-    { key: "hero", type: "hero-page" },
-    { key: "about", type: "text-block" },
-    { key: "features", type: "feature-grid" },
-    { key: "cta", type: "cta" },
-  ],
   "services-8": [
     { key: "hero", type: "hero-page" },
     { key: "about", type: "text-block" },

@@ -319,11 +319,16 @@ export const defaultContent: Record<string, Record<string, any>> = {
   },
 
   ...Object.fromEntries(
-    ["4", "5", "6", "7", "8"].map((n) => [
+    Object.entries({
+      "4": "โครงการ T-VER",
+      "5": "สำนักงานสีเขียว (Green Office)",
+      "6": "Carbon Footprint for Event",
+      "8": "ขั้นตอนการขอรับบริการ",
+    }).map(([n, serviceName]) => [
       `services-${n}`,
       {
         hero: {
-          heading: `บริการที่ ${n}`,
+          heading: serviceName,
           description: "คำอธิบายบริการนี้ — ปรับเปลี่ยนได้ในระบบจัดการ",
         },
         about: {
@@ -404,11 +409,10 @@ export const defaultContent: Record<string, Record<string, any>> = {
         { slug: "services-cfo", label: "บริการ - CFO" },
         { slug: "services-cfp", label: "บริการ - CFP" },
         { slug: "services-training", label: "บริการ - อบรม" },
-        { slug: "services-4", label: "บริการที่ 4" },
-        { slug: "services-5", label: "บริการที่ 5" },
-        { slug: "services-6", label: "บริการที่ 6" },
-        { slug: "services-7", label: "บริการที่ 7" },
-        { slug: "services-8", label: "บริการที่ 8" },
+        { slug: "services-4", label: "บริการ - T-VER" },
+        { slug: "services-5", label: "บริการ - Green Office" },
+        { slug: "services-6", label: "บริการ - Carbon Footprint for Event" },
+        { slug: "services-8", label: "ขั้นตอนการขอรับบริการ" },
         { slug: "news", label: "ข่าวสาร" },
         { slug: "contact", label: "ติดต่อเรา" },
         { slug: "global", label: "ส่วนกลาง" },

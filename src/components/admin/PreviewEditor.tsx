@@ -25,7 +25,6 @@ const slugToPath: Record<string, string> = {
   "services-4": "/services/4",
   "services-5": "/services/5",
   "services-6": "/services/6",
-  "services-7": "/services/7",
   "services-8": "/services/8",
   news: "/news",
   contact: "/contact",

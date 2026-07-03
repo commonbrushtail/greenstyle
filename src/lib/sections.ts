@@ -139,12 +139,21 @@ export interface ContactInfoContent {
 }
 
 export interface TrainingShowcaseContent {
-  title: string;
-  subtitle: string;
-  description: string;
-  href: string;
+  mainService?: {
+    title: string;
+    subtitle: string;
+    description: string;
+    href: string;
+    ctaText?: string;
+    courses: string[];
+  };
+  /** Legacy flat shape — older rows stored these at the top level. */
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  href?: string;
   ctaText?: string;
-  courses: string[];
+  courses?: string[];
   otherServices: {
     title: string;
     description: string;

@@ -442,7 +442,10 @@ export function ContactInfo({ content: c }: { content: ContactInfoContent }) {
 }
 
 /* -------------------- training-showcase -------------------- */
-export function TrainingShowcase({ content: c }: { content: TrainingShowcaseContent }) {
+export function TrainingShowcase({ content }: { content: TrainingShowcaseContent }) {
+  // Content is stored with the main-service fields nested under `mainService`;
+  // fall back to the legacy flat shape for rows saved before that change.
+  const c = { ...content, ...(content.mainService ?? {}) };
   return (
     <>
       <div className="py-16 md:py-20 bg-gradient-to-br from-primary-50 via-white to-primary-50 relative overflow-hidden">

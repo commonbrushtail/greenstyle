@@ -1,6 +1,5 @@
 "use client";
 
-import { Suspense } from "react";
 import { PreviewProvider, useSections } from "@/components/admin/PreviewProvider";
 import { sectionRegistry } from "./registry";
 import type { SectionInstance } from "@/lib/content";
@@ -32,10 +31,8 @@ export default function SectionList({
   initialSections: SectionInstance[];
 }) {
   return (
-    <Suspense fallback={null}>
-      <PreviewProvider pageSlug={pageSlug} initialSections={initialSections}>
-        <Renderer />
-      </PreviewProvider>
-    </Suspense>
+    <PreviewProvider pageSlug={pageSlug} initialSections={initialSections}>
+      <Renderer />
+    </PreviewProvider>
   );
 }

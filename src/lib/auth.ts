@@ -1,25 +1,8 @@
-import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
+import { signAdminToken, verifyAdminToken } from "@/lib/jwt";
 
-const secret = new TextEncoder().encode(
-  process.env.JWT_SECRET || "fallback-secret"
-);
-
-export async function createToken(userId: string, email: string) {
-  return new SignJWT({ userId, email })
-    .setProtectedHeader({ alg: "HS256" })
-    .setExpirationTime("7d")
-    .sign(secret);
-}
-
-export async function verifyToken(token: string) {
-  try {
-    const { payload } = await jwtVerify(token, secret);
-    return payload as { userId: string; email: string };
-  } catch {
-    return null;
-  }
-}
+export const createToken = signAdminToken;
+export const verifyToken = verifyAdminToken;
 
 export async function getSession() {
   const cookieStore = await cookies();

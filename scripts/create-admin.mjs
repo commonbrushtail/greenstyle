@@ -1,10 +1,15 @@
-import { neon } from '@neondatabase/serverless';
+import { sql } from './lib/db.mjs';
 import bcrypt from 'bcryptjs';
 
-const sql = neon('postgresql://neondb_owner:npg_QT2pUJRsDOH9@ep-bitter-darkness-a1ansdjq.ap-southeast-1.aws.neon.tech/neondb?sslmode=require');
+// Creates an admin, or changes the password if the email already exists.
+const [email, password] = process.argv.slice(2);
 
-const email = process.argv[2] || 'admin@greenstyle.co.th';
-const password = process.argv[3] || 'admin123';
+if (!email || !password || password.length < 12) {
+  console.error(
+    'Usage: node --env-file=.env.local scripts/create-admin.mjs <email> <password of 12+ characters>'
+  );
+  process.exit(1);
+}
 
 async function createAdmin() {
   const hash = await bcrypt.hash(password, 10);

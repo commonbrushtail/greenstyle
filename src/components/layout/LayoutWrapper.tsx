@@ -1,88 +1,58 @@
 "use client";
 
-import { Suspense } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { HeaderSection, FooterSection } from "@/components/sections-builder/globals";
 import ComingSoon from "@/components/layout/ComingSoon";
 import MaintenanceBanner from "@/components/layout/MaintenanceBanner";
-import { AdminProvider } from "@/components/admin/AdminProvider";
+import { AdminProvider, useAdmin } from "@/components/admin/AdminProvider";
 import { GlobalPreviewProvider } from "@/components/admin/GlobalPreviewProvider";
 import EditModeBar from "@/components/admin/EditModeBar";
+import { useIsPreview } from "@/lib/use-is-preview";
 import type { SiteStatus } from "@/lib/site-status";
 import type { SectionInstance } from "@/lib/content";
 
 function LayoutWrapperInner({
   children,
   siteStatus,
-  userIsAdmin,
-  adminEmail,
   globalSections,
 }: {
   children: React.ReactNode;
   siteStatus: SiteStatus;
-  userIsAdmin: boolean;
-  adminEmail: string | null;
   globalSections: SectionInstance[];
 }) {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const isAdminRoute = pathname.startsWith("/admin");
-  const isPreview = searchParams?.get("preview") === "1";
+  const isPreview = useIsPreview();
+  const { isAdmin } = useAdmin();
 
   // Admin routes are always accessible — no gating, no header/footer.
-  if (isAdminRoute) {
-    return (
-      <AdminProvider initialIsAdmin={userIsAdmin} initialEmail={adminEmail}>
-        {children}
-      </AdminProvider>
-    );
+  if (pathname.startsWith("/admin")) {
+    return <>{children}</>;
   }
 
-  // Site is offline.
-  if (!siteStatus.live) {
-    if (!userIsAdmin) {
-      return (
-        <AdminProvider initialIsAdmin={false} initialEmail={null}>
-          <ComingSoon status={siteStatus} />
-        </AdminProvider>
-      );
-    }
-    return (
-      <AdminProvider initialIsAdmin={userIsAdmin} initialEmail={adminEmail}>
-        <GlobalPreviewProvider initialSections={globalSections}>
-          {!isPreview && <MaintenanceBanner />}
-          <HeaderSection />
-          <main className="min-h-screen">{children}</main>
-          <FooterSection />
-          <EditModeBar />
-        </GlobalPreviewProvider>
-      </AdminProvider>
-    );
+  // Site is offline: only logged-in admins get past this.
+  if (!siteStatus.live && !isAdmin) {
+    return <ComingSoon status={siteStatus} />;
   }
 
-  // Site is live — normal render.
   return (
-    <AdminProvider initialIsAdmin={userIsAdmin} initialEmail={adminEmail}>
-      <GlobalPreviewProvider initialSections={globalSections}>
-        <HeaderSection />
-        <main className="min-h-screen">{children}</main>
-        <FooterSection />
-        <EditModeBar />
-      </GlobalPreviewProvider>
-    </AdminProvider>
+    <GlobalPreviewProvider initialSections={globalSections}>
+      {!siteStatus.live && !isPreview && <MaintenanceBanner />}
+      <HeaderSection />
+      <main className="min-h-screen">{children}</main>
+      <FooterSection />
+      <EditModeBar />
+    </GlobalPreviewProvider>
   );
 }
 
 export default function LayoutWrapper(props: {
   children: React.ReactNode;
   siteStatus: SiteStatus;
-  userIsAdmin: boolean;
-  adminEmail: string | null;
   globalSections: SectionInstance[];
 }) {
   return (
-    <Suspense fallback={null}>
+    <AdminProvider>
       <LayoutWrapperInner {...props} />
-    </Suspense>
+    </AdminProvider>
   );
 }

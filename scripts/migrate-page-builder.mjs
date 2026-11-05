@@ -1,8 +1,4 @@
-import { neon } from "@neondatabase/serverless";
-
-const sql = neon(
-  "postgresql://neondb_owner:npg_QT2pUJRsDOH9@ep-bitter-darkness-a1ansdjq.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
-);
+import { sql } from './lib/db.mjs';
 
 // (page_slug, section_key) -> { type, order }
 const mapping = {

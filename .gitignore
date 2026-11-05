@@ -54,3 +54,6 @@ Thumbs.db
 nul
 
 .vercel
+
+# Local database backups (this repo is public)
+backups/

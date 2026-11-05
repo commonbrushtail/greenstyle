@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
 import bcrypt from "bcryptjs";
 import { createToken } from "@/lib/auth";
+import { ADMIN_HINT_COOKIE } from "@/lib/admin-hint";
 
 export async function POST(request: Request) {
   try {
@@ -31,6 +32,12 @@ export async function POST(request: Request) {
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       maxAge: 60 * 60 * 24 * 7, // 7 days
+      path: "/",
+    });
+    response.cookies.set(ADMIN_HINT_COOKIE, "1", {
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 24 * 7,
       path: "/",
     });
 

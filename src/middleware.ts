@@ -1,10 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { jwtVerify } from "jose";
-
-const secret = new TextEncoder().encode(
-  process.env.JWT_SECRET || "fallback-secret"
-);
+import { verifyAdminToken } from "@/lib/jwt";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -17,12 +13,10 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
 
-    try {
-      await jwtVerify(token, secret);
-      return NextResponse.next();
-    } catch {
+    if (!(await verifyAdminToken(token))) {
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
+    return NextResponse.next();
   }
 
   return NextResponse.next();

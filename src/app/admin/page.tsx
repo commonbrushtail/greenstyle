@@ -74,7 +74,7 @@ export default function AdminDashboard() {
           <p className="text-sm text-red-700">
             หากเป็นการอัพเดทครั้งแรก ให้รัน:{" "}
             <code className="bg-red-100 px-2 py-1 rounded">
-              node scripts/migrate-page-builder.mjs
+              node --env-file=.env.local scripts/migrate-page-builder.mjs
             </code>
           </p>
         </div>

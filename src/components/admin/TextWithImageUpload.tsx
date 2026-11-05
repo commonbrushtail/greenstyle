@@ -1,8 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-
-const MAX_BYTES = 1024 * 1024; // 1 MB
+import { MAX_IMAGE_BYTES, uploadImage } from "@/lib/image-upload";
 
 export default function TextWithImageUpload({
   value,
@@ -18,22 +17,23 @@ export default function TextWithImageUpload({
   const fileRef = useRef<HTMLInputElement | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const isImage = /^data:image\//.test(value) || /\.(png|jpe?g|gif|webp|svg)(\?.*)?$/i.test(value);
+  const isImage = /^data:image\//.test(value) || /\.(png|jpe?g|gif|webp|svg|avif)(\?.*)?$/i.test(value);
 
-  const handleFile = (file: File) => {
+  const handleFile = async (file: File) => {
     setError(null);
     if (!file.type.startsWith("image/")) {
       setError("ไฟล์นี้ไม่ใช่รูปภาพ");
       return;
     }
-    if (file.size > MAX_BYTES) {
+    if (file.size > MAX_IMAGE_BYTES) {
       setError(`ไฟล์ใหญ่เกินไป (${(file.size / 1024 / 1024).toFixed(2)} MB) สูงสุด 1 MB`);
       return;
     }
-    const reader = new FileReader();
-    reader.onload = () => onChange(reader.result as string);
-    reader.onerror = () => setError("อ่านไฟล์ไม่สำเร็จ");
-    reader.readAsDataURL(file);
+    try {
+      onChange(await uploadImage(file));
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "อัปโหลดรูปไม่สำเร็จ");
+    }
   };
 
   const InputEl = multiline ? "textarea" : "input";

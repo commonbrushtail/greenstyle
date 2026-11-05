@@ -5,6 +5,12 @@ import { getSession } from "@/lib/auth";
 import { ensureSchema } from "@/lib/ensure-schema";
 
 export async function GET(request: Request) {
+  // Only the admin UI reads this. Public pages get content server-side.
+  const session = await getSession();
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const { searchParams } = new URL(request.url);
   const page = searchParams.get("page");
 
@@ -86,6 +92,15 @@ export async function POST(request: Request) {
 
   const sql = getDb();
   const json = JSON.stringify(content ?? {});
+
+  // Base64 images end up in every page response, so they must go through
+  // /api/upload. Without this check, pasting one would bring the problem back.
+  if (json.includes('"data:image/')) {
+    return NextResponse.json(
+      { error: "บันทึกรูปแบบ base64 ไม่ได้ กรุณาอัปโหลดรูปด้วยปุ่มอัปโหลด" },
+      { status: 400 }
+    );
+  }
 
   // Try the new schema (with section_type + display_order). On error
   // (most likely the columns don't exist yet), fall back to the legacy

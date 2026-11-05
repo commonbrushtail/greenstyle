@@ -48,44 +48,42 @@ export async function getPageContent(
 }
 
 /** Returns the ordered list of section instances on a page.
- *  Falls back to the static page-mapping when section_type is missing,
- *  so pages render even before the migrate-page-builder script has run. */
+ *  Falls back to the static page-mapping when section_type is missing.
+ *  Database errors are deliberately not caught. Pages are cached, so default
+ *  content returned here would be served until the next refresh. When a refresh
+ *  throws, Next.js keeps serving the last good page instead. */
 export async function getPageSections(
   pageSlug: string
 ): Promise<SectionInstance[]> {
-  try {
-    const sql = getDb();
-    const rows = await sql`
-      SELECT section_key, section_type, display_order, content
-      FROM content
-      WHERE page_slug = ${pageSlug}
-      ORDER BY display_order, section_key
-    `;
+  const sql = getDb();
+  const rows = await sql`
+    SELECT section_key, section_type, display_order, content
+    FROM content
+    WHERE page_slug = ${pageSlug}
+    ORDER BY display_order, section_key
+  `;
 
-    const result = rows
-      .map((r) => {
-        const key = r.section_key as string;
-        const dbType = (r.section_type as string) || "";
-        const inferred = inferSectionType(pageSlug, key);
-        const type = dbType || inferred?.type || "";
-        if (!type) return null;
-        return {
-          id: key,
-          type,
-          content: (r.content as Record<string, unknown>) ?? {},
-          order: (r.display_order as number) ?? inferred?.order ?? 0,
-        } as SectionInstance;
-      })
-      .filter((x): x is SectionInstance => x !== null)
-      .sort((a, b) => a.order - b.order);
+  const result = rows
+    .map((r) => {
+      const key = r.section_key as string;
+      const dbType = (r.section_type as string) || "";
+      const inferred = inferSectionType(pageSlug, key);
+      const type = dbType || inferred?.type || "";
+      if (!type) return null;
+      return {
+        id: key,
+        type,
+        content: (r.content as Record<string, unknown>) ?? {},
+        order: (r.display_order as number) ?? inferred?.order ?? 0,
+      } as SectionInstance;
+    })
+    .filter((x): x is SectionInstance => x !== null)
+    .sort((a, b) => a.order - b.order);
 
-    if (result.length > 0) return result;
+  if (result.length > 0) return result;
 
-    // Nothing in DB — fall back to default-content if available.
-    return buildDefaultSections(pageSlug);
-  } catch {
-    return buildDefaultSections(pageSlug);
-  }
+  // Nothing in DB — fall back to default-content if available.
+  return buildDefaultSections(pageSlug);
 }
 
 function buildDefaultSections(pageSlug: string): SectionInstance[] {

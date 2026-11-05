@@ -1,13 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useIsPreview } from "@/lib/use-is-preview";
 import { useAdmin } from "./AdminProvider";
 
 export default function EditModeBar() {
   const { isAdmin, email, loading } = useAdmin();
-  const searchParams = useSearchParams();
-  const isPreview = searchParams?.get("preview") === "1";
+  const isPreview = useIsPreview();
 
   if (loading || !isAdmin || isPreview) return null;
 

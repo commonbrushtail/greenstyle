@@ -8,7 +8,7 @@ import {
   useState,
   ReactNode,
 } from "react";
-import { useSearchParams } from "next/navigation";
+import { useIsPreview } from "@/lib/use-is-preview";
 import type { SectionInstance } from "@/lib/content";
 
 type Ctx = {
@@ -29,8 +29,7 @@ export function GlobalPreviewProvider({
   children: ReactNode;
   initialSections: SectionInstance[];
 }) {
-  const searchParams = useSearchParams();
-  const isPreview = searchParams?.get("preview") === "1";
+  const isPreview = useIsPreview();
   const [sections, setSections] = useState<SectionInstance[]>(initialSections);
 
   useEffect(() => {
